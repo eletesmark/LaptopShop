@@ -1,0 +1,15 @@
+/Users/eletesmark/Projects/LaptopWebshop/LaptopWebshop/bin/Release/net7.0/LaptopWebshop
+/Users/eletesmark/Projects/LaptopWebshop/LaptopWebshop/bin/Release/net7.0/LaptopWebshop.deps.json
+/Users/eletesmark/Projects/LaptopWebshop/LaptopWebshop/bin/Release/net7.0/LaptopWebshop.runtimeconfig.json
+/Users/eletesmark/Projects/LaptopWebshop/LaptopWebshop/bin/Release/net7.0/LaptopWebshop.dll
+/Users/eletesmark/Projects/LaptopWebshop/LaptopWebshop/bin/Release/net7.0/LaptopWebshop.pdb
+/Users/eletesmark/Projects/LaptopWebshop/LaptopWebshop/obj/Release/net7.0/LaptopWebshop.csproj.AssemblyReference.cache
+/Users/eletesmark/Projects/LaptopWebshop/LaptopWebshop/obj/Release/net7.0/LaptopWebshop.GeneratedMSBuildEditorConfig.editorconfig
+/Users/eletesmark/Projects/LaptopWebshop/LaptopWebshop/obj/Release/net7.0/LaptopWebshop.AssemblyInfoInputs.cache
+/Users/eletesmark/Projects/LaptopWebshop/LaptopWebshop/obj/Release/net7.0/LaptopWebshop.AssemblyInfo.cs
+/Users/eletesmark/Projects/LaptopWebshop/LaptopWebshop/obj/Release/net7.0/LaptopWebshop.csproj.CoreCompileInputs.cache
+/Users/eletesmark/Projects/LaptopWebshop/LaptopWebshop/obj/Release/net7.0/LaptopWebshop.dll
+/Users/eletesmark/Projects/LaptopWebshop/LaptopWebshop/obj/Release/net7.0/refint/LaptopWebshop.dll
+/Users/eletesmark/Projects/LaptopWebshop/LaptopWebshop/obj/Release/net7.0/LaptopWebshop.pdb
+/Users/eletesmark/Projects/LaptopWebshop/LaptopWebshop/obj/Release/net7.0/LaptopWebshop.genruntimeconfig.cache
+/Users/eletesmark/Projects/LaptopWebshop/LaptopWebshop/obj/Release/net7.0/ref/LaptopWebshop.dll
