@@ -16,6 +16,7 @@
 
         public override string Type() => "Admin";
 
+        //igen, semmi  értelme, jól látod
         public void addNewPrize(int prize)
         {
             LuckyWheel.addNewPrize(prize);
@@ -27,7 +28,7 @@
             LuckyWheel.deletePrize(prize);
         }
 
-        public static void AddManagerRule(string username)
+        public static void AddManagerRole(string username)
         {
             User user = UserStorage.GetUser(username) ;
             if (user == null) return;
@@ -39,7 +40,7 @@
             }
             else throw new Exception("You cannot give manager role to this user!");
         }
-
+    //TODO ha kész lesz az order
         // public static void ListOrders()
         // {
         //     foreach (var order in OrderStorage.Orders)
@@ -47,29 +48,34 @@
         //         Console.WriteLine(order);
         //     }
         // }
-        //
-        // public static void ListUsers()
-        // {
-        //     foreach (var user in UserStorage.Users)
-        //     {
-        //         Console.WriteLine(user);
-        //     }
-        // }
-        //
-        // public static void SearchUser(string username)
-        // {
-        //     foreach (var user in UserStorage.Users)
-        //     {
-        //         if (user.Username == username)
-        //         {
-        //             Console.WriteLine(user);
-        //         }
-        //     }
-        // }
-        //
-        // public static void DeleteUser(string username)
-        // {
-        //     UserStorage.Users.Remove(UserStorage.GetUser(username));
-        // }
+        
+        public static List<User> ListUsers()
+        {
+            if (UserStorage.GetUsers().Count < 1)
+            {
+                throw new Exception("There are no users!");
+                //return null;
+            }
+            return UserStorage.GetUsers();
+            
+        }
+        
+        public static User SearchUser(string username)
+        {
+            foreach (var user in UserStorage.GetUsers())
+            {
+                if (user.username == username)
+                {
+                    return user;
+                }
+            }
+            
+            return null;
+        }
+        
+        public static void DeleteUser(string username)
+        {
+            UserStorage.GetUsers().Remove(UserStorage.GetUser(username));
+        }
     }
 }

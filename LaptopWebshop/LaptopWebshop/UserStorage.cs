@@ -8,14 +8,14 @@ namespace LaptopWebshop
 		//static List<User> users = new List<User>();
         static Dictionary<string, User> users = new Dictionary<string, User>();
 
-		public static void GetUsers() =>  new List<User>(users.Values);
+		public static List<User> GetUsers() =>  new List<User>(users.Values);
 
         public static User GetUser(string username)
         {
             return users[username];
         }
 
-		public static void GetUsers(Func<User, bool> filter) => users.Where(a => filter(a.Value)).Select(a => a.Value).ToList();
+		public static List<User> GetUsers(Func<User, bool> filter) => users.Where(a => filter(a.Value)).Select(a => a.Value).ToList();
 
         public static void DeleteProduct(string username)
         {

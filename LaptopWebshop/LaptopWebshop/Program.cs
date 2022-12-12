@@ -176,12 +176,13 @@ namespace LaptopWebshoop
             switch (n)
             {
                 case 1:
-                    AddManagerRule();
+                    AddManagerRole();
+                    AdminMenu();
                     break;
-                case 2: //ListOrders(); break;
-                case 3: //ListUsers(); break;
-                case 4: //SearchUser(); break;
-                case 5: //DeleteUser(); break;
+                case 2: //ListOrders(); AdminMenu(); break;
+                case 3: ListUsers(); AdminMenu(); break;
+                case 4: SearchUser(); AdminMenu();  break;
+                case 5: DeleteUser(); AdminMenu(); break;
                 case 6:
                     Logout();
                     break;
@@ -307,13 +308,68 @@ namespace LaptopWebshoop
             currentUser = new Guest();
             GuestMenu();
         }
-
-        public void AddManagerRule()
+        
+        //TODO szépen kiírni
+        public void AddManagerRole()
         {
+            if (currentUser.Type() != "Admin")
+            {
+                return;
+            }
             Console.WriteLine("username: ");
             string username = Console.ReadLine();
 
-            Admin.AddManagerRule(username);
+            Admin.AddManagerRole(username);
+        }
+        //TODO szépen kiírni
+        public void ListUsers()
+        {
+            if (currentUser.Type() != "Admin")
+            {
+                Console.WriteLine("How ?");
+                return;
+            }
+            // ne kérdezd én sem vágom, de az adminnak kell ezt csinálnia sooo...
+            var users = Admin.ListUsers();
+            
+            foreach (var u in users)
+            {
+                Console.WriteLine(u.username + " "+ u.name+ " "+u.Type());
+            }
+        }
+        
+        //TODO szépen megírni a kiírást
+        public void SearchUser()
+        {
+            Console.WriteLine("Username you want to search for: ");
+            string username = Console.ReadLine();
+            User u = Admin.SearchUser(username);
+            if (u!= null)
+            {
+                Console.WriteLine(u.username+ " "+ u.name+ " "+ u.password);
+                return;
+            }
+            Console.WriteLine("There is no user with this username!");
+        }
+        //TODO szépen megírni a kiírást, lehetne szebben
+        public void DeleteUser()
+        {
+            if (currentUser.Type() != "Admin" || currentUser.Type() != "Manager")
+            {
+                return;
+            }
+
+            Console.WriteLine("Username of the user you want to delete: ");
+            string username = Console.ReadLine();
+            try
+            {
+                Admin.DeleteUser(username);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("There's no user with this userName!");
+            }
+            Console.WriteLine("User Successfully deleted!");
             AdminMenu();
         }
 
