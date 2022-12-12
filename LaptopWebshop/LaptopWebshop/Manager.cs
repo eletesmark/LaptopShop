@@ -12,6 +12,17 @@ namespace LaptopWebshop
         public Manager(User u) : base(u.username, u.name, u.password, u.birth) { }
 
         public override string Type() => "Manager";
+        
+        public void addNewPrize(int prize)
+        {
+            LuckyWheel.addNewPrize(prize);
+        }
+
+        //deletes all prize with the same value
+        public void deletePrize(int prize)
+        {
+            LuckyWheel.deletePrize(prize);
+        }
     }
 }
 

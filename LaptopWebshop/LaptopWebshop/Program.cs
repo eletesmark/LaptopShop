@@ -2,7 +2,6 @@
 using System.Text;
 using System.IO;
 using System.Xml.Linq;
-
 using LaptopWebshop;
 
 /*
@@ -18,26 +17,26 @@ using LaptopWebshop;
 
 namespace LaptopWebshoop
 {
-	class Program
-	{
-		User currentUser;
+    class Program
+    {
+        User currentUser;
 
-		Program()
-		{
-			currentUser = new Guest();
+        Program()
+        {
+            currentUser = new Guest();
 
             UserStorage.ReadUsersTxt();
-        } 
+        }
 
-		public static void Main(string[] args)
-		{
+        public static void Main(string[] args)
+        {
             Console.ForegroundColor = ConsoleColor.Gray;
             //Console.BackgroundColor = ConsoleColor.Black;
             //Console.Clear();
 
             Program program = new Program();
 
-			program.GuestMenu();
+            program.GuestMenu();
 
             UserStorage.WriteToTxt();
         }
@@ -66,24 +65,32 @@ namespace LaptopWebshoop
 
         //GUEST Menu
         void GuestMenu()
-		{
-			Console.WriteLine("\r\nMenu:\r\n{0}", Guest.menu);
+        {
+            Console.WriteLine("\r\nMenu:\r\n{0}", Guest.menu);
 
-			//Console.WriteLine("  1.Login");
-			//Console.WriteLine("  2.Registration");
-			//Console.WriteLine("  3.List laptops");
-			//Console.WriteLine("  4.Exit");
+            //Console.WriteLine("  1.Login");
+            //Console.WriteLine("  2.Registration");
+            //Console.WriteLine("  3.List laptops");
+            //Console.WriteLine("  4.Exit");
 
             Console.Write("Please select an option: ");
-			int.TryParse(Console.ReadLine(), out int n); //Beolvas egy sort és megpróbálja számmá alakítaní, ha nem sikerül 0 lesz az 'n' változó értéke
+            int.TryParse(Console.ReadLine(),
+                out int n); //Beolvas egy sort és megpróbálja számmá alakítaní, ha nem sikerül 0 lesz az 'n' változó értéke
 
             switch (n)
             {
-                case 1: Login(); break;
-                case 2: Registration(); break;
+                case 1:
+                    Login();
+                    break;
+                case 2:
+                    Registration();
+                    break;
                 //case 3: ListLaptops(); break;
                 case 4: return;
-                default: WriteError("Invalid input! Try again:"); GuestMenu(); break;
+                default:
+                    WriteError("Invalid input! Try again:");
+                    GuestMenu();
+                    break;
             }
         }
 
@@ -99,16 +106,22 @@ namespace LaptopWebshoop
             //Console.WriteLine(" -5.Exit");
 
             Console.Write("Please select an option: ");
-            int.TryParse(Console.ReadLine(), out int n); //Beolvas egy sort és megpróbálja számmá alakítaní, ha nem sikerül 0 lesz az 'n' változó értéke
+            int.TryParse(Console.ReadLine(),
+                out int n); //Beolvas egy sort és megpróbálja számmá alakítaní, ha nem sikerül 0 lesz az 'n' változó értéke
 
             switch (n)
             {
                 case 1: //ListLaptops(); break;
                 case 2: //AddToCart(); break;
                 case 3: //ShowCart(); break;
-                case 4: Logout(); break;
+                case 4:
+                    Logout();
+                    break;
                 case 5: return;
-                default: WriteError("Invalid input! Try again:"); RegisteredMenu(); break;
+                default:
+                    WriteError("Invalid input! Try again:");
+                    RegisteredMenu();
+                    break;
             }
         }
 
@@ -126,7 +139,8 @@ namespace LaptopWebshoop
             //Console.WriteLine(" -8.Exit");
 
             Console.Write("Please select an option: ");
-            int.TryParse(Console.ReadLine(), out int n); //Beolvas egy sort és megpróbálja számmá alakítaní, ha nem sikerül 0 lesz az 'n' változó értéke
+            int.TryParse(Console.ReadLine(),
+                out int n); //Beolvas egy sort és megpróbálja számmá alakítaní, ha nem sikerül 0 lesz az 'n' változó értéke
 
             switch (n)
             {
@@ -136,7 +150,9 @@ namespace LaptopWebshoop
                 case 4: //DeleteProduct(); break;
                 case 5: //ShowStats(); break;
                 case 6: //ChangeDiscounts(); break;
-                case 7: Logout(); break;
+                case 7:
+                    Logout();
+                    break;
                 case 8: return;
             }
         }
@@ -154,56 +170,65 @@ namespace LaptopWebshoop
             //Console.WriteLine(" -7.Exit");
 
             Console.Write("Please select an option: ");
-            int.TryParse(Console.ReadLine(), out int n); //Beolvas egy sort és megpróbálja számmá alakítaní, ha nem sikerül 0 lesz az 'n' változó értéke
+            int.TryParse(Console.ReadLine(),
+                out int n); //Beolvas egy sort és megpróbálja számmá alakítaní, ha nem sikerül 0 lesz az 'n' változó értéke
 
             switch (n)
             {
-                case 1: //AddManagerRule(); break;
+                case 1:
+                    AddManagerRule();
+                    break;
                 case 2: //ListOrders(); break;
                 case 3: //ListUsers(); break;
                 case 4: //SearchUser(); break;
                 case 5: //DeleteUser(); break;
-                case 6: Logout(); break;
+                case 6:
+                    Logout();
+                    break;
                 case 7: return;
-                default: WriteError("Invalid input! Try again:"); RegisteredMenu(); break;
+                default:
+                    WriteError("Invalid input! Try again:");
+                    RegisteredMenu();
+                    break;
             }
         }
 
         //GetInput
-        void GetInput(ref string param, string msg, bool isPassword=false)
-		{
-			do
-			{
-				Console.Write("\t{0}: ", msg);
-				param = (isPassword ? ReadPassword() : Console.ReadLine()) ?? string.Empty; // Ha a Console.ReadLine() null értékkel tér vissza akkor helyette 'string.Empty' lesz a param értéke (különben warning lenne, mivel a string 'non-nullable reference' típus)
-				if (param.Trim().Equals(string.Empty) || param.Length < 3)
-					WriteError("Invalid input! Please try again");
-			} while (param.Trim().Equals(string.Empty) || param.Length < 3);
+        void GetInput(ref string param, string msg, bool isPassword = false)
+        {
+            do
+            {
+                Console.Write("\t{0}: ", msg);
+                param = (isPassword ? ReadPassword() : Console.ReadLine()) ??
+                        string.Empty; // Ha a Console.ReadLine() null értékkel tér vissza akkor helyette 'string.Empty' lesz a param értéke (különben warning lenne, mivel a string 'non-nullable reference' típus)
+                if (param.Trim().Equals(string.Empty) || param.Length < 3)
+                    WriteError("Invalid input! Please try again");
+            } while (param.Trim().Equals(string.Empty) || param.Length < 3);
         }
 
         void GetInput(ref DateOnly param, string s)
         {
             Console.Write("\t{0}: ", s);
             while (!DateOnly.TryParse(Console.ReadLine(), out param))
-			{
+            {
                 WriteError("Invalid input! Please try again");
                 Console.Write("\t{0}: ", s);
-            } 
+            }
         }
 
         //Registration
         void Registration()
-		{
-			string username = string.Empty;
-			string name = string.Empty;
-			string password = string.Empty;
-			DateOnly birth = DateOnly.MinValue;
+        {
+            string username = string.Empty;
+            string name = string.Empty;
+            string password = string.Empty;
+            DateOnly birth = DateOnly.MinValue;
 
-			Console.WriteLine("\r\nRegistration form:");
+            Console.WriteLine("\r\nRegistration form:");
 
             GetInput(ref username, "Username");
-			while (UserStorage.IsUsernameTaken(username))
-			{
+            while (UserStorage.IsUsernameTaken(username))
+            {
                 WriteError("This username is already in use!");
                 GetInput(ref username, "Username");
             }
@@ -211,19 +236,20 @@ namespace LaptopWebshoop
             GetInput(ref name, "Name");
             GetInput(ref password, "Password", true);
 
-			GetInput(ref birth, "Birthday (YYYY-MM-DD)");
+            GetInput(ref birth, "Birthday (YYYY-MM-DD)");
 
             UserStorage.Register(username, name, password, birth);
             WriteSucces("You successfully registered!");
 
-            GuestMenu();
+            currentUser = new RegisteredUser(username, name, password, birth);
+            RegisteredMenu();
         }
 
         //Login
         void Login()
-		{
-			string username = string.Empty;
-			string password = string.Empty;
+        {
+            string username = string.Empty;
+            string password = string.Empty;
 
             Console.WriteLine("\r\nLogin form:");
 
@@ -241,27 +267,36 @@ namespace LaptopWebshoop
                 GetInput(ref password, "Password", true);
             }
 
-            
-            GetInput(ref username, "Username");
-            GetInput(ref password, "Password", true);
 
-            while (UserStorage.IsValid(username, password))
-            {
-                WriteError("The username or the password wrong! Try again:");
-                GetInput(ref username, "Username");
-                GetInput(ref password, "Password", true);
-            }
-            
+            // GetInput(ref username, "Username");
+            // GetInput(ref password, "Password", true);
+
+            // while (UserStorage.IsValid(username, password))
+            // {
+            //     WriteError("The username or the password wrong! Try again:");
+            //     GetInput(ref username, "Username");
+            //     GetInput(ref password, "Password", true);
+            // }
+
 
             currentUser = UserStorage.LogIn(username);
             WriteSucces("You successfully logged in!");
 
             switch (currentUser.Type())
             {
-                case "Registered user": RegisteredMenu(); break;
-                case "Manager": ManagerMenu(); break;
-                case "Admin": AdminMenu(); break;
-                default: WriteError("Unexpected error! Please try again!"); GuestMenu(); break;
+                case "Registered user":
+                    RegisteredMenu();
+                    break;
+                case "Manager":
+                    ManagerMenu();
+                    break;
+                case "Admin":
+                    AdminMenu();
+                    break;
+                default:
+                    WriteError("Unexpected error! Please try again!");
+                    GuestMenu();
+                    break;
             }
         }
 
@@ -273,6 +308,15 @@ namespace LaptopWebshoop
             GuestMenu();
         }
 
+        public void AddManagerRule()
+        {
+            Console.WriteLine("username: ");
+            string username = Console.ReadLine();
+
+            Admin.AddManagerRule(username);
+            AdminMenu();
+        }
+
         //Password reader - https://www.c-sharpcorner.com/forums/password-in-c-sharp-console-application
         public static string ReadPassword()
         {
@@ -280,7 +324,8 @@ namespace LaptopWebshoop
             ConsoleKeyInfo keyInfo = Console.ReadKey(true);
             while (keyInfo.Key != ConsoleKey.Enter)
             {
-                if (keyInfo.Key != ConsoleKey.Backspace && (char.IsLetter(keyInfo.KeyChar) || char.IsNumber(keyInfo.KeyChar)))
+                if (keyInfo.Key != ConsoleKey.Backspace &&
+                    (char.IsLetter(keyInfo.KeyChar) || char.IsNumber(keyInfo.KeyChar)))
                 {
                     Console.Write("*");
                     password += keyInfo.KeyChar;
@@ -292,8 +337,10 @@ namespace LaptopWebshoop
                     Console.Write(" ");
                     Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop);
                 }
+
                 keyInfo = Console.ReadKey(true);
             }
+
             Console.WriteLine();
             return password;
         }

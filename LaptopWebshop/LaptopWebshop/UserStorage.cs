@@ -8,7 +8,12 @@ namespace LaptopWebshop
 		//static List<User> users = new List<User>();
         static Dictionary<string, User> users = new Dictionary<string, User>();
 
-		public static void GetUsers() => new List<User>(users.Values);
+		public static void GetUsers() =>  new List<User>(users.Values);
+
+        public static User GetUser(string username)
+        {
+            return users[username];
+        }
 
 		public static void GetUsers(Func<User, bool> filter) => users.Where(a => filter(a.Value)).Select(a => a.Value).ToList();
 
@@ -66,6 +71,14 @@ namespace LaptopWebshop
             ruw.Close();
             mw.Close();
             aw.Close();
+        }
+
+        public static string getType(string username, string password)
+        {
+            if (users.Any(a => a.Value.IsIt(username, password)))
+                return users[username].Type();
+
+            return "Not found";
         }
     }
 }

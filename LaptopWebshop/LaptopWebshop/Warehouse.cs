@@ -26,6 +26,10 @@ namespace LaptopWebshop
 
         public static List<Product> ListProducts(Func<Product, bool> filter) => products.Where(a => filter(a)).ToList();
 
+        public static void ReadProducts()
+        {
+	        //TODO read all products
+        }
     }
 }
 
