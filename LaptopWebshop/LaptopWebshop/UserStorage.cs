@@ -14,8 +14,8 @@ namespace LaptopWebshop
         {
             return users[username];
         }
-        
-        //TODO set user -> enélkül nem fogsz tudni hozzáadni a dictionaryhez
+
+        public static void AddUser(RegisteredUser u) => users[u.username] = u;
 
         public static bool IsUsernameTaken(string username) => users.ContainsKey(username);//users.Any(a => a.username.Equals(username));
 
@@ -49,21 +49,42 @@ namespace LaptopWebshop
 
         public static void WriteToTxt()
         {
-            TextWriter ruw = new StreamWriter("registeredUsers.txt", false, Encoding.UTF8);
-            TextWriter mw = new StreamWriter("managers.txt", false, Encoding.UTF8);
-            TextWriter aw = new StreamWriter("admins.txt", false, Encoding.UTF8);
+            TextWriter registeredUsers_Txt = StreamWriter.Null; //Close() miatt kell adni neki valami alap erteket
+            TextWriter managers_Txt = StreamWriter.Null;
+            TextWriter admins_Txt = StreamWriter.Null;
 
-            foreach (RegisteredUser u in users.Select(a => a.Value))
-                if(u.Type().Equals("Registered user"))
-                    ruw.WriteLine(u.FormatToTxt());
-                else if (u.Type().Equals("Manager"))
-                    mw.WriteLine(u.FormatToTxt());
-                else if (u.Type().Equals("Admin"))
-                    aw.WriteLine(u.FormatToTxt());
+            try
+            {
+                registeredUsers_Txt = new StreamWriter("registeredUsers.txt", false, Encoding.UTF8);
+                managers_Txt = new StreamWriter("managers.txt", false, Encoding.UTF8);
+                admins_Txt = new StreamWriter("admins.txt", false, Encoding.UTF8);
 
-            ruw.Close();
-            mw.Close();
-            aw.Close();
+                registeredUsers_Txt.WriteLine(string.Join("\r\n", users.Where(a => a.GetType().Name.Equals("RegisteredUser")).Select(a => ((RegisteredUser)a.Value).FormatToTxt()).ToList()));
+                managers_Txt.WriteLine(string.Join("\r\n", users.Where(a => a.GetType().Name.Equals("Manager")).Select(a => ((Manager)a.Value).FormatToTxt()).ToList()));
+                admins_Txt.WriteLine(string.Join("\r\n", users.Where(a => a.GetType().Name.Equals("Admin")).Select(a => ((Admin)a.Value).FormatToTxt()).ToList()));
+
+                //foreach (RegisteredUser u in users.Select(a => a.Value))
+                //    if (u.Type().Equals("Registered user"))
+                //        registeredUsers_Txt.WriteLine(u.FormatToTxt());
+                //    else if (u.Type().Equals("Manager"))
+                //        managers_Txt.WriteLine(u.FormatToTxt());
+                //    else if (u.Type().Equals("Admin"))
+                //        admins_Txt.WriteLine(u.FormatToTxt());
+            }
+            catch (IOException ioex)
+            {
+
+            }
+            catch (Exception e)
+            {
+
+            }
+            finally
+            {
+                registeredUsers_Txt.Close();
+                managers_Txt.Close();
+                admins_Txt.Close();
+            }
         }
 
         // public static string getType(string username, string password)
