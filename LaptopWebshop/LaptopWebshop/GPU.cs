@@ -11,6 +11,8 @@ namespace LaptopWebshop
             this.memory = memory;
             this.clockRate = clockRate;
         }
+
+        //rak
     }
 }
 
