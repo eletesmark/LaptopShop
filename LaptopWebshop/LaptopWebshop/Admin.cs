@@ -1,6 +1,6 @@
 ﻿namespace LaptopWebshop
 {
-    public class Admin : RegisteredUser
+    public class Admin : Manager
     {
         public static readonly string menu =
             "  1.Add manager rule to user\r\n  2.List orders\r\n  3.List users\r\n  4.Search user\r\n  5.Delete user\r\n  6.Logout\r\n  7.Exit";
@@ -17,16 +17,6 @@
         public override string Type() => "Admin";
 
         //igen, semmi  értelme, jól látod
-        public void addNewPrize(int prize)
-        {
-            LuckyWheel.addNewPrize(prize);
-        }
-
-        //deletes all prize with the same value
-        public void deletePrize(int prize)
-        {
-            LuckyWheel.deletePrize(prize);
-        }
 
         public static void AddManagerRole(string username)
         {
@@ -35,7 +25,7 @@
             if (user.GetType() == typeof(RegisteredUser))
             {
                 user = new Manager(user.username, user.name, user.password, user.birth);
-                UserStorage.AddManagerRule(user);
+                UserStorage.GetUsers().Add(user);
                 // UserStorage.WriteToTxt();
             }
             else throw new Exception("You cannot give manager role to this user!");
@@ -69,7 +59,6 @@
                     return user;
                 }
             }
-            
             return null;
         }
         
@@ -77,5 +66,7 @@
         {
             UserStorage.GetUsers().Remove(UserStorage.GetUser(username));
         }
+        
+        
     }
 }

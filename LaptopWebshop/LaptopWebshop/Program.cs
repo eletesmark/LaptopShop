@@ -238,49 +238,17 @@ namespace LaptopWebshoop
             GetInput(ref password, "Password", true);
 
             GetInput(ref birth, "Birthday (YYYY-MM-DD)");
-
-            UserStorage.Register(username, name, password, birth);
-            WriteSucces("You successfully registered!");
-
+            
             currentUser = new RegisteredUser(username, name, password, birth);
+            Guest.Register(username, name, password, birth);
+            WriteSucces("You successfully registered!");
             RegisteredMenu();
         }
 
         //Login
         void Login()
         {
-            string username = string.Empty;
-            string password = string.Empty;
-
-            Console.WriteLine("\r\nLogin form:");
-
-            GetInput(ref username, "Username");
-            while (!UserStorage.IsValidUsername(username))
-            {
-                WriteError("Invalid username! Try again:");
-                GetInput(ref username, "Username");
-            }
-
-            GetInput(ref password, "Password", true);
-            while (!UserStorage.IsValid(username, password))
-            {
-                WriteError("Invalid password! Try again:");
-                GetInput(ref password, "Password", true);
-            }
-
-
-            // GetInput(ref username, "Username");
-            // GetInput(ref password, "Password", true);
-
-            // while (UserStorage.IsValid(username, password))
-            // {
-            //     WriteError("The username or the password wrong! Try again:");
-            //     GetInput(ref username, "Username");
-            //     GetInput(ref password, "Password", true);
-            // }
-
-
-            currentUser = UserStorage.LogIn(username);
+            currentUser = RegisteredUser.login();
             WriteSucces("You successfully logged in!");
 
             switch (currentUser.Type())
@@ -302,7 +270,7 @@ namespace LaptopWebshoop
         }
 
         //Logout
-        void Logout()
+            void Logout()
         {
             //Ha a kosar nem ures akkor rakerdezes kijelentkezes elott!!!
             currentUser = new Guest();

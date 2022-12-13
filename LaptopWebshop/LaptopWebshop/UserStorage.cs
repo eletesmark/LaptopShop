@@ -6,23 +6,16 @@ namespace LaptopWebshop
 	public static class UserStorage
 	{
 		//static List<User> users = new List<User>();
-        static Dictionary<string, User> users = new Dictionary<string, User>();
+        static Dictionary<string, User> users = new();
 
-		public static List<User> GetUsers() =>  new List<User>(users.Values);
+		public static List<User> GetUsers() =>  new(users.Values);
 
         public static User GetUser(string username)
         {
             return users[username];
         }
-
-		public static List<User> GetUsers(Func<User, bool> filter) => users.Where(a => filter(a.Value)).Select(a => a.Value).ToList();
-
-        public static void DeleteProduct(string username)
-        {
-            if (users.Any(a => a.Value.username == username))
-                users.Remove(username);
-                //users.Remove(users.Where(a => a.username == username).ToList()[0]);
-        }
+        
+        //TODO set user -> enélkül nem fogsz tudni hozzáadni a dictionaryhez
 
         public static bool IsUsernameTaken(string username) => users.ContainsKey(username);//users.Any(a => a.username.Equals(username));
 
@@ -31,11 +24,11 @@ namespace LaptopWebshop
 
         public static bool IsValidUsername(string username) => users.Any(a => a.Value.username.Equals(username));
 
-        public static User LogIn(string username) => users[username];
+        // public static User LogIn(string username) => users[username];
 
-        public static void Register(string username, string name, string password, DateOnly birth) => users.Add(username, new RegisteredUser(username, name, password, birth));
+        // public static void Register(string username, string name, string password, DateOnly birth) => users.Add(username, new RegisteredUser(username, name, password, birth));
 
-        public static void AddManagerRule(User u) => users[u.username] = new Manager(u);
+        // public static void AddManagerRule(User u) => users[u.username] = new Manager(u);
 
         public static void ReadUsersTxt()
         {
@@ -73,13 +66,13 @@ namespace LaptopWebshop
             aw.Close();
         }
 
-        public static string getType(string username, string password)
-        {
-            if (users.Any(a => a.Value.IsIt(username, password)))
-                return users[username].Type();
-
-            return "Not found";
-        }
+        // public static string getType(string username, string password)
+        // {
+        //     if (users.Any(a => a.Value.IsIt(username, password)))
+        //         return users[username].Type();
+        //
+        //     return "Not found";
+        // }
     }
 }
 

@@ -26,6 +26,7 @@ namespace LaptopWebshop
 
             Console.WriteLine("\r\nLogin form:");
 
+            Console.WriteLine("Username: ");
             username = Console.ReadLine()!;
             while (!UserStorage.IsValidUsername(username))
             {
@@ -33,6 +34,7 @@ namespace LaptopWebshop
                 username = Console.ReadLine()!;
             }
 
+            Console.WriteLine("Password: ");
             password = Console.ReadLine()!;
             while (!UserStorage.IsValid(username, password))
             {
@@ -42,13 +44,14 @@ namespace LaptopWebshop
 
             string name = UserStorage.GetUser(username).name;
             birth = UserStorage.GetUser(username).birth;
-            string type = UserStorage.getType(username, password);
+            string type = UserStorage.GetUser(username).Type();
+            Console.WriteLine(type+ " asdasdasd ");
 
             switch (type)
             {
-                case "registeredUser" : return new RegisteredUser(username, name, password, birth);
-                case "manager" : return new Manager(username, name, password, birth);
-                case "admin" : return new Admin(username, name, password, birth);
+                case "RegisteredUser" : return new RegisteredUser(username, name, password, birth);
+                case "Manager" : return new Manager(username, name, password, birth);
+                case "Admin" : return new Admin(username, name, password, birth);
                 default: return null;
             }
         }
