@@ -18,7 +18,7 @@ namespace LaptopWebshop
 	        UserStorage.GetUsers().Add( u);
 	        // UserStorage.
 
-	        List<User> users = UserStorage.GetUsers();
+	        List<RegisteredUser> users = UserStorage.GetUsers();
 
 	        Console.WriteLine("Usernames in users:");
 	        foreach (var a in users)

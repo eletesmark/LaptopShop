@@ -6,11 +6,11 @@ namespace LaptopWebshop
 	public static class UserStorage
 	{
 		//static List<User> users = new List<User>();
-        static Dictionary<string, User> users = new();
+        static Dictionary<string, RegisteredUser> users = new();
 
-		public static List<User> GetUsers() =>  new(users.Values);
+		public static List<RegisteredUser> GetUsers() =>  new(users.Values);
 
-        public static User GetUser(string username)
+        public static RegisteredUser GetUser(string username)
         {
             return users[username];
         }
@@ -35,15 +35,15 @@ namespace LaptopWebshop
             users.Clear();
 
             if (File.Exists("registeredUsers.txt"))
-                foreach (User u in File.ReadAllLines("registeredUsers.txt").Where(a => a.Split(';').Length == 6).Select(a => new RegisteredUser(a)).DistinctBy(a => a.username).Where(a => !users.ContainsKey(a.username)).ToList())
+                foreach (RegisteredUser u in File.ReadAllLines("registeredUsers.txt").Where(a => a.Split(';').Length == 6).Select(a => new RegisteredUser(a)).DistinctBy(a => a.username).Where(a => !users.ContainsKey(a.username)).ToList())
                     users.Add(u.username, u);
 
             if (File.Exists("managers.txt"))
-                foreach (User u in File.ReadAllLines("managers.txt").Where(a => a.Split(';').Length == 6).Select(a => new Manager(a)).DistinctBy(a => a.username).Where(a => !users.ContainsKey(a.username)).ToList())
+                foreach (RegisteredUser u in File.ReadAllLines("managers.txt").Where(a => a.Split(';').Length == 6).Select(a => new Manager(a)).DistinctBy(a => a.username).Where(a => !users.ContainsKey(a.username)).ToList())
                     users.Add(u.username, u);
 
             if (File.Exists("admins.txt"))
-                foreach (User u in File.ReadAllLines("admins.txt").Where(a => a.Split(';').Length == 6).Select(a => new Admin(a)).DistinctBy(a => a.username).Where(a => !users.ContainsKey(a.username)).ToList())
+                foreach (RegisteredUser u in File.ReadAllLines("admins.txt").Where(a => a.Split(';').Length == 6).Select(a => new Admin(a)).DistinctBy(a => a.username).Where(a => !users.ContainsKey(a.username)).ToList())
                     users.Add(u.username, u);
         }
 
@@ -53,7 +53,7 @@ namespace LaptopWebshop
             TextWriter mw = new StreamWriter("managers.txt", false, Encoding.UTF8);
             TextWriter aw = new StreamWriter("admins.txt", false, Encoding.UTF8);
 
-            foreach (User u in users.Select(a => a.Value))
+            foreach (RegisteredUser u in users.Select(a => a.Value))
                 if(u.Type().Equals("Registered user"))
                     ruw.WriteLine(u.FormatToTxt());
                 else if (u.Type().Equals("Manager"))

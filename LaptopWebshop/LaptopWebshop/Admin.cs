@@ -16,11 +16,11 @@
 
         public override string Type() => "Admin";
 
-        //igen, semmi  értelme, jól látod
 
+        //TODO test hogy átrakja-e a felhasználót managerbe
         public static void AddManagerRole(string username)
         {
-            User user = UserStorage.GetUser(username) ;
+            RegisteredUser user = UserStorage.GetUser(username) ;
             if (user == null) return;
             if (user.GetType() == typeof(RegisteredUser))
             {
@@ -39,7 +39,7 @@
         //     }
         // }
         
-        public static List<User> ListUsers()
+        public static List<RegisteredUser> ListUsers()
         {
             if (UserStorage.GetUsers().Count < 1)
             {
@@ -50,7 +50,7 @@
             
         }
         
-        public static User SearchUser(string username)
+        public static RegisteredUser SearchUser(string username)
         {
             foreach (var user in UserStorage.GetUsers())
             {

@@ -314,7 +314,6 @@ namespace LaptopWebshoop
             User u = Admin.SearchUser(username);
             if (u!= null)
             {
-                Console.WriteLine(u.username+ " "+ u.name+ " "+ u.password);
                 return;
             }
             Console.WriteLine("There is no user with this username!");
