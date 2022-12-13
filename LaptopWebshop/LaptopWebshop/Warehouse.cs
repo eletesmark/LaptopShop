@@ -28,7 +28,9 @@ namespace LaptopWebshop
 
         public static void ReadProducts()
         {
-	        //TODO read all products
+			//TODO read all products
+			//smajkdfvdsjhkgbksj
+			return;
         }
     }
 }
