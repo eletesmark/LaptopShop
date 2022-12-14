@@ -15,7 +15,7 @@ namespace LaptopWebshop
         public int discount { get; protected set; }
 
         public static readonly string menu =
-            "  1.List laptops\r\n  2.Add to cart\r\n  3.Show cart\r\n  4.Purchase\r\n  5.Show prizes\r\n  6.Spin\r\n  7.Logout\r\n  8.Exit";
+            "  1.List laptops\r\n  2.Add to cart\r\n  3.Show cart\r\n  4.Purchase\r\n  5.Show my prize\r\n  6.Spin\r\n  7.Logout\r\n  8.Exit";
         
         //TODO létrehozásnál beállítani az order adattagot filebeolvasáskor
         public RegisteredUser(string username, string name, string password, DateOnly birth) : base()
@@ -60,8 +60,14 @@ namespace LaptopWebshop
         //Hash password - https://www.codeproject.com/Questions/523323/Encryptingpluspasswordplusinplusc-23
         
         //ha false dobhatsz szép errort ha már megírtad a functiont
-        public bool spin()
+        public void spin()
         {
+            
+            if (!(DateTime.Now.Subtract(lastSpin).TotalHours >= 24))
+            {
+                Program.WriteError("You can only spin once a day!");
+                return;
+            }
             List<int> prizes = LuckyWheel.getPrizes();
             if (prizes.Count > 0)
             {
@@ -69,10 +75,10 @@ namespace LaptopWebshop
                 int prizesindex = rnd.Next(0, prizes.Count);
                 discount = prizes[prizesindex];
                 lastSpin = DateTime.Now;
-                return true;
+                Program.WriteSucces($"Congrats! You won a {discount}% discount!");
+                return;
             }
-
-            return false;
+            Program.WriteError("Oops! There was an error. Better luck next time!");
         }
 
         public override string Type() => "Registered user";
@@ -81,7 +87,6 @@ namespace LaptopWebshop
         {
             string username = string.Empty;
             string password = string.Empty;
-            DateOnly birth;
 
             Console.WriteLine("\r\nLogin form:");
 

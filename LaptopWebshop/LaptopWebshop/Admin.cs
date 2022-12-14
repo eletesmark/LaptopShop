@@ -7,7 +7,7 @@ namespace LaptopWebshop
     public class Admin : Manager
     {
         public static readonly string menu =
-            "  1.Add manager rule to user\r\n  2.List orders\r\n  3.List users\r\n  4.Search user\r\n  5.Delete user\r\n  6.List laptops\r\n  7.Add to cart\r\n  8.Show cart\r\n  9.Show prizes  10.Spin\r\n  11.Add new product\r\n  12.Modify product\r\n  13.Delete product\r\n  14.Stats\r\n  15.Change lucky-wheel's discounts\r\n  16.Logout\r\n  17.Exit";
+            "  1.Add manager rule to user\r\n  2.List orders\r\n  3.List users\r\n  4.Search user\r\n  5.Delete user\r\n  6.List laptops\r\n  7.Add to cart\r\n  8.Show cart\r\n  9.Show prizes\r\n  10.Spin\r\n  11.Add new product\r\n  12.Modify product\r\n  13.Delete product\r\n  14.Stats\r\n  15.Change lucky-wheel's discounts\r\n  16.Logout\r\n  17.Exit";
 
         public Admin(string username, string name, string password, DateOnly birth) : base(username, name, password,
             birth)

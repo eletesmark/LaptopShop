@@ -14,10 +14,6 @@ public class Order
         cart = new List<Laptop>();
         date = DateTime.Now;
         address = string.Empty;
-        // foreach (var item in cart)
-        // {
-        //     totalPrice += item.price;
-        // }
     }
     
     public Order(string line)

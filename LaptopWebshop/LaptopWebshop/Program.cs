@@ -138,8 +138,7 @@ namespace LaptopWebshoop
                 case 3: currentUser.ListLaptops(); break;
                 case 4: currentUser.AddToCart(); break;
                 case 5: currentUser.ShowCart(); break;
-                case 6: User.ListPrizes(); break;
-                case 7:
+                case 6:
                     WriteTxts();
                     Environment.Exit(0); 
                     break;
@@ -164,7 +163,8 @@ namespace LaptopWebshoop
                 case 2: currentUser.AddToCart(); break;
                 case 3: currentUser.ShowCart(); break;
                 case 4: ((RegisteredUser)currentUser).Purchase(); break;
-                case 5: User.ListPrizes(); break;
+                case 5:
+                    Console.WriteLine($"Your discount: {((RegisteredUser)currentUser).discount}%"); break;
                 case 6: ((RegisteredUser)currentUser).spin(); break;
                 case 7:
                     Logout();
