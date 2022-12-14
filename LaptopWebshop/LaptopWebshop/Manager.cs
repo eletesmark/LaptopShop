@@ -5,17 +5,11 @@ namespace LaptopWebshop
 {
     public class Manager : RegisteredUser
     {
-        public static readonly string menu =
-            "  1.List products\r\n  2.Add new product\r\n  3.Modify product\r\n  4.Delete product\r\n  5.Stats\r\n  6.Change lucky-wheel's discounts\r\n  7.Logout\r\n  8.Exit";
+        public static readonly string menu = "  1.List products\r\n  2.Add new product\r\n  3.Modify product\r\n  4.Delete product\r\n  5.Stats\r\n  6.Change lucky-wheel's discounts\r\n  7.Logout\r\n  8.Exit";
 
-        public Manager(string username, string name, string password, DateOnly birth) : base(username, name, password,
-            birth)
-        {
-        }
+        public Manager(string username, string name, string password, DateOnly birth) : base(username, name, password, birth) { }
 
-        public Manager(string line) : base(line)
-        {
-        }
+        public Manager(string line) : base(line) { }
 
         // public Manager(User u) : base(u.username, u.name, u.password, u.birth) { }
 
@@ -136,6 +130,132 @@ namespace LaptopWebshop
         
         
 
+        public void ModifyProduct()
+        {
+            Console.WriteLine("Products:\r\n{0}", string.Join("\r\n", Warehouse.ListProducts().OrderBy(a => a.GetType().Name).Select(a => string.Format("ID: {0}, {1}, {2}", a.id, a.GetType().Name, a.ToString())).ToList()));
+            int n = 0;
+            Program.GetInput(ref n, "Choose a product ID");
+
+            if (!Warehouse.products.Any(a => a.id == n))
+            {
+                Program.WriteError("Invalid ID!");
+                return;
+            }
+            
+            string tmpName = string.Empty; //All
+            string tmpBrand = string.Empty; //All
+            double tmpClockRate = 0; //CPU, GPU
+            int tmpCores = 0; //CPU
+            int tmpMemory = 0; //GPU, RAM, HardDrive
+            double tmpSpeed = 0; //RAM
+            string tmpType = string.Empty; //HardDrive
+            double tmpSize = 0; //Display
+            int tmpWidth = 0; //Display
+            int tmpHeight = 0; //Display
+
+            int tmpCPUid = 0;
+            int tmpGPUid = 0;
+            int tmpRAMid = 0;
+            int tmpHardDRiveid = 0;
+            int tmpDisplayid = 0;
+
+            double tmpWeight = 0;
+            int tmpPrice = 0;
+
+            switch (Warehouse.products.First(a => a.id == n).GetType().Name)
+            {
+                case "CPU":
+                    Program.GetInput(ref tmpName, "CPU name");
+                    Program.GetInput(ref tmpBrand, "CPU brand");
+                    Program.GetInput(ref tmpClockRate, "CPU clock rate");
+                    Program.GetInput(ref tmpCores, "CPU cores");
+                    Warehouse.AddNewProduct(new CPU(tmpName, tmpBrand, tmpClockRate, tmpCores));
+                    Program.WriteSucces("CPU modified successfully!");
+                    break;
+                case "GPU":
+                    Program.GetInput(ref tmpName, "GPU name");
+                    Program.GetInput(ref tmpBrand, "GPU brand");
+                    Program.GetInput(ref tmpMemory, "GPU memory");
+                    Program.GetInput(ref tmpClockRate, "GPU clock rate");
+                    Warehouse.AddNewProduct(new GPU(tmpName, tmpBrand, tmpMemory, tmpClockRate));
+                    Program.WriteSucces("GPU modified successfully!");
+                    break;
+                case "RAM":
+                    Program.GetInput(ref tmpName, "RAM name");
+                    Program.GetInput(ref tmpBrand, "RAM brand");
+                    Program.GetInput(ref tmpMemory, "RAM size");
+                    Program.GetInput(ref tmpSpeed, "RAM speed");
+                    Warehouse.AddNewProduct(new RAM(tmpName, tmpBrand, tmpMemory, tmpSpeed));
+                    Program.WriteSucces("RAM modified successfully!");
+                    break;
+                case "HardDrive":
+                    Program.GetInput(ref tmpName, "HardDrive name");
+                    Program.GetInput(ref tmpBrand, "HardDrive brand");
+                    Program.GetInput(ref tmpMemory, "HardDrive size");
+                    Program.GetInput(ref tmpType, "HardDrive type");
+                    Warehouse.AddNewProduct(new HardDrive(tmpName, tmpBrand, tmpMemory, tmpType));
+                    Program.WriteSucces("HardDrive modified successfully!");
+                    break;
+                case "Display":
+                    Program.GetInput(ref tmpName, "Display name");
+                    Program.GetInput(ref tmpBrand, "Display brand");
+                    Program.GetInput(ref tmpSize, "Display size");
+                    Program.GetInput(ref tmpWidth, "Display width (pixels)");
+                    Program.GetInput(ref tmpHeight, "Display height (pixels)");
+                    Warehouse.AddNewProduct(new Display(tmpName, tmpBrand, tmpSize, tmpWidth, tmpHeight));
+                    Program.WriteSucces("Display modified successfully!");
+                    break;
+                case "Laptop":
+                    Console.WriteLine("Components:\r\n{0}", string.Join("\r\n", Warehouse.ListProducts(a => a.GetType() != typeof(Laptop)).OrderBy(a => a.GetType().Name).Select(a => string.Format("ID: {0}, {1}, {2}", a.id, a.GetType().Name, a.ToString())).ToList()));
+                    Program.GetInput(ref tmpName, "Laptop name");
+                    Program.GetInput(ref tmpBrand, "Laptop brand");
+                    Program.GetInput(ref tmpCPUid, "Laptop CPU ID");
+                    Program.GetInput(ref tmpGPUid, "Laptop GPU ID");
+                    Program.GetInput(ref tmpRAMid, "Laptop RAM ID");
+                    Program.GetInput(ref tmpHardDRiveid, "Laptop HardDrive ID");
+                    Program.GetInput(ref tmpDisplayid, "Laptop Display ID");
+                    Program.GetInput(ref tmpWeight, "Laptop weight");
+                    Program.GetInput(ref tmpPrice, "Laptop price");
+                    if (Warehouse.products.Where(a => a.GetType() == typeof(CPU)).Any(a => a.id == tmpCPUid)
+                        && Warehouse.products.Where(a => a.GetType() == typeof(GPU)).Any(a => a.id == tmpGPUid)
+                        && Warehouse.products.Where(a => a.GetType() == typeof(RAM)).Any(a => a.id == tmpRAMid)
+                        && Warehouse.products.Where(a => a.GetType() == typeof(HardDrive))
+                            .Any(a => a.id == tmpHardDRiveid)
+                        && Warehouse.products.Where(a => a.GetType() == typeof(Display)).Any(a => a.id == tmpDisplayid))
+                        Warehouse.AddNewProduct(new Laptop(tmpName, tmpBrand, tmpCPUid, tmpGPUid, tmpRAMid,
+                            tmpHardDRiveid, tmpDisplayid, tmpWeight, tmpPrice));
+                    else
+                    {
+                        Console.WriteLine("Invalid component ID(s)!");
+                        break;
+                    }
+                    Program.WriteSucces("Laptop modified successfully!");
+                    break;
+                default:
+                    Console.WriteLine("Invalid input!");
+                    break;
+            }
+            
+            if(Warehouse.products.Any(a => a.id == n))
+                Warehouse.DeleteProduct(n);
+        }
+
+        public void DeleteProduct()
+        {
+            Console.WriteLine("Products:\r\n{0}", string.Join("\r\n", Warehouse.ListProducts().OrderBy(a => a.GetType().Name).Select(a => string.Format("ID: {0}, {1}, {2}", a.id, a.GetType().Name, a.ToString())).ToList()));
+            int n = 0;
+            Program.GetInput(ref n, "Choose a product ID");
+
+            if (!Warehouse.products.Any(a => a.id == n))
+            {
+                Program.WriteError("Invalid ID!");
+                return;
+            }
+            
+            Warehouse.DeleteProduct(n);
+            Program.WriteSucces("Deleted successfully!");
+        }
+
         public static void AddNewPrize(int prize)
         {
             LuckyWheel.addNewPrize(prize);
@@ -161,3 +281,4 @@ namespace LaptopWebshop
         
     }
 }
+
