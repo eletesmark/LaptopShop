@@ -233,10 +233,22 @@ namespace LaptopWebshoop
                 case 5:
                     DeleteUser();
                     break;
-                case 6:
+                case 6: currentUser.ListLaptops(); break;
+                case 7: currentUser.AddToCart(); break;
+                case 8: currentUser.ShowCart(); break;
+                case 9: User.ListPrizes(); break;
+                case 10: ((RegisteredUser)currentUser).spin(); break;
+                case 11: ((Manager)currentUser).AddNewProduct(); break;
+                case 12: ((Manager)currentUser).ModifyProduct(); break;
+                case 13: ((Manager)currentUser).DeleteProduct(); break;
+                case 14: ((Manager)currentUser).GetTotalRevenue(); break;
+                case 15:
+                    ChangeDiscounts();
+                    break;
+                case 16:
                     Logout();
                     break;
-                case 7:
+                case 17:
                     WriteTxts();
                     Environment.Exit(0); 
                     break;
