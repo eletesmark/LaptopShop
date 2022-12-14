@@ -4,17 +4,6 @@ using System.IO;
 using System.Xml.Linq;
 using LaptopWebshop;
 
-/*
- 
- -User rész kész
- -Menü elvileg kész
- 
- + Termékekkel lehetne tovább menni
-    + warehouse osztály tovább fejlesztése
- + Szerencsekerék osztályt létrehozni
- 
-*/
-
 namespace LaptopWebshoop
 {
     class Program
@@ -220,27 +209,7 @@ namespace LaptopWebshoop
         //Registration
         void Registration()
         {
-            string username = string.Empty;
-            string name = string.Empty;
-            string password = string.Empty;
-            DateOnly birth = DateOnly.MinValue;
-
-            Console.WriteLine("\r\nRegistration form:");
-
-            GetInput(ref username, "Username");
-            while (UserStorage.IsUsernameTaken(username))
-            {
-                WriteError("This username is already in use!");
-                GetInput(ref username, "Username");
-            }
-
-            GetInput(ref name, "Name");
-            GetInput(ref password, "Password", true);
-
-            GetInput(ref birth, "Birthday (YYYY-MM-DD)");
-            
-            currentUser = new RegisteredUser(username, name, password, birth);
-            Guest.Register(username, name, password, birth);
+            currentUser = Guest.Register();
             WriteSucces("You successfully registered!");
             RegisteredMenu();
         }
@@ -270,7 +239,7 @@ namespace LaptopWebshoop
         }
 
         //Logout
-            void Logout()
+        void Logout()
         {
             //Ha a kosar nem ures akkor rakerdezes kijelentkezes elott!!!
             currentUser = new Guest();

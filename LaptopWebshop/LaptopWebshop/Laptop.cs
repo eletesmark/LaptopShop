@@ -28,6 +28,13 @@
         {
             string[] t = line.Split(';');
 
+            if (t.Length < 26)
+            {
+                
+                return;
+            }
+                
+            
             this.name = t[0];
             this.brand = t[1];
 
