@@ -22,12 +22,12 @@ namespace LaptopWebshop
             int.TryParse(t[2], out int _size);
             this.size = _size;
 
-            this.type = t[4];
+            this.type = t[3];
         }
 
         public override string FormatToTxt() => string.Format("{0};{1};{2};{3}", name, brand, size, type);
         
-        public override string ToString() => string.Format("Size: {0}, Type: {1}", size, type);
+        public override string ToString() => string.Format("{0}, Size: {1}, Type: {2}", base.ToString(), size, type);
     }
 }
 

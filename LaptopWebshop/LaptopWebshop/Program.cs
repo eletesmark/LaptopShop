@@ -16,6 +16,8 @@ namespace LaptopWebshoop
             currentUser = new Guest();
 
             UserStorage.ReadUsersTxt();
+            Warehouse.ReadProductsTxt();
+            OrderStorage.ReadOrdersTxt();
             LuckyWheel.ReadPrizesTxt();
         }
 
@@ -37,19 +39,19 @@ namespace LaptopWebshoop
                 switch (currentUser.Type())
                 {
                     case "Guest":
-                        GuestMenu();
+                        GuestMenu(); 
                         break;
-                    case "Registered user":
+                    case "Registered user": 
                         RegisteredMenu();
                         break;
-                    case "Manager":
+                    case "Manager": 
                         ManagerMenu();
                         break;
-                    case "Admin":
+                    case "Admin": 
                         AdminMenu();
                         break;
-                    default:
-                        WriteError("Invalid input! Try again:");
+                    default: 
+                        WriteError("Invalid input! Try again:"); 
                         break;
                 }
             }
@@ -83,20 +85,19 @@ namespace LaptopWebshoop
             Console.WriteLine("\t{0}", msg);
             Console.ForegroundColor = ConsoleColor.Gray;
         }
-
+        
         //GetInput
         public static void GetInput(ref string param, string msg)
         {
             do
             {
                 Console.Write("\t{0}: ", msg);
-                param = Console.ReadLine() ??
-                        string.Empty; // Ha a Console.ReadLine() null értékkel tér vissza akkor helyette 'string.Empty' lesz a param értéke (különben warning lenne, mivel a string 'non-nullable reference' típus)
+                param = Console.ReadLine() ?? string.Empty; // Ha a Console.ReadLine() null értékkel tér vissza akkor helyette 'string.Empty' lesz a param értéke (különben warning lenne, mivel a string 'non-nullable reference' típus)
                 if (param.Trim().Equals(string.Empty) || param.Length < 3)
                     WriteError("Invalid input! Please try again");
             } while (param.Trim().Equals(string.Empty) || param.Length < 3);
         }
-
+        
         public static void GetInput(ref int param, string msg)
         {
             Console.Write("\t{0}: ", msg);
@@ -106,7 +107,7 @@ namespace LaptopWebshoop
                 Console.Write("\t{0}: ", msg);
             }
         }
-
+        
         public static void GetInput(ref double param, string msg)
         {
             Console.Write("\t{0}: ", msg);
@@ -121,10 +122,9 @@ namespace LaptopWebshoop
         void GuestMenu()
         {
             Console.WriteLine("\r\nMenu:\r\n{0}", Guest.menu);
-
+            
             Console.Write("Please select an option: ");
-            int.TryParse(Console.ReadLine(),
-                out int n); //Beolvas egy sort és megpróbálja számmá alakítaní, ha nem sikerül 0 lesz az 'n' változó értéke
+            int.TryParse(Console.ReadLine(), out int n); //Beolvas egy sort és megpróbálja számmá alakítaní, ha nem sikerül 0 lesz az 'n' változó értéke
 
             switch (n)
             {
@@ -134,10 +134,10 @@ namespace LaptopWebshoop
                 case 2:
                     Registration();
                     break;
-                //case 3: ListLaptops(); break;
+                case 3: currentUser.ListLaptops(); break;
                 case 4:
                     WriteTxts();
-                    Environment.Exit(0);
+                    Environment.Exit(0); 
                     break;
                 default:
                     WriteError("Invalid input! Try again:");
@@ -156,9 +156,7 @@ namespace LaptopWebshoop
 
             switch (n)
             {
-                case 1:
-                    currentUser.ListLaptops();
-                    break;
+                case 1: currentUser.ListLaptops(); break;
                 case 2: //AddToCart(); break;
                 case 3: //ShowCart(); break;
                 case 4:
@@ -166,7 +164,7 @@ namespace LaptopWebshoop
                     break;
                 case 5:
                     WriteTxts();
-                    Environment.Exit(0);
+                    Environment.Exit(0); 
                     break;
                 default:
                     WriteError("Invalid input! Try again:");
@@ -184,10 +182,8 @@ namespace LaptopWebshoop
 
             switch (n)
             {
-                case 1: //ListProducts(); break;
-                case 2:
-                    ((Manager)currentUser).addNewProduct();
-                    break;
+                case 1: currentUser.ListLaptops(); break;
+                case 2: ((Manager)currentUser).AddNewProduct(); break;
                 case 3: //ModifyProduct(); break;
                 case 4: //DeleteProduct(); break;
                 case 5: //ShowStats(); break;
@@ -197,9 +193,9 @@ namespace LaptopWebshoop
                 case 7:
                     Logout();
                     break;
-                case 8:
+                case 8: 
                     WriteTxts();
-                    Environment.Exit(0);
+                    Environment.Exit(0); 
                     break;
                 default:
                     WriteError("Invalid input! Try again:");
@@ -210,7 +206,7 @@ namespace LaptopWebshoop
         void AdminMenu()
         {
             Console.WriteLine("\r\nMenu:\r\n{0}", Admin.menu);
-
+            
             Console.Write("Please select an option: ");
             int.TryParse(Console.ReadLine(),
                 out int n); //Beolvas egy sort és megpróbálja számmá alakítaní, ha nem sikerül 0 lesz az 'n' változó értéke
@@ -233,13 +229,16 @@ namespace LaptopWebshoop
                 case 6:
                     Logout();
                     break;
-                case 7: return;
+                case 7:
+                    WriteTxts();
+                    Environment.Exit(0); 
+                    break;
                 default:
                     WriteError("Invalid input! Try again:");
                     break;
             }
         }
-
+        
         //Registration
         void Registration()
         {
@@ -292,7 +291,7 @@ namespace LaptopWebshoop
             Console.WriteLine();
             Console.WriteLine("  1. CPU");
         }
-
+        
         //TODO szépen kiírni
         public void AddManagerRole()
         {
@@ -319,7 +318,7 @@ namespace LaptopWebshoop
 
             Admin.ListUsers();
         }
-
+        
         //TODO szépen megírni a kiírást
         public void SearchUser()
         {
@@ -367,8 +366,9 @@ namespace LaptopWebshoop
                 WriteSucces($"User {username}Successfully deleted!");
                 break;
             }
-           
 
+            Console.WriteLine("User Successfully deleted!");
+            AdminMenu();
         }
 
         public void ChangeDiscounts()
@@ -394,7 +394,6 @@ namespace LaptopWebshoop
                         {
                             Console.WriteLine("This is not a number!");
                         }
-
                         Console.WriteLine(discount);
 
                         if (discount is <= 0 or >= 100)
@@ -402,7 +401,6 @@ namespace LaptopWebshoop
                             WriteError("Prize should be between 0 and 100!");
                             continue;
                         }
-
                         break;
                     }
 
