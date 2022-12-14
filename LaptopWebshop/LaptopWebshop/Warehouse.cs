@@ -33,6 +33,8 @@ namespace LaptopWebshop
         {
             products.Clear();
 
+            Console.WriteLine(File.ReadAllLines("CPUs.txt").Length);
+            
             if (File.Exists("CPUs.txt"))
                 products.AddRange(File.ReadAllLines("CPUs.txt").Where(a => a.Split(';').Length == 4).Select(a => new CPU(a)).ToList());
 
@@ -68,13 +70,14 @@ namespace LaptopWebshop
                 RAMs_Txt = new StreamWriter("RAMs.txt", false, Encoding.UTF8);
                 HardDrives_Txt = new StreamWriter("HardDrives.txt", false, Encoding.UTF8);
                 Displays = new StreamWriter("Displays.txt", false, Encoding.UTF8);
+                Laptops = new StreamWriter("Laptops.txt", false, Encoding.UTF8);
 
                 CPUs_Txt.WriteLine(string.Join("\r\n", products.Where(a => a.GetType() == typeof(CPU)).Select(a => ((CPU)a).FormatToTxt()).ToList()));
-                CPUs_Txt.WriteLine(string.Join("\r\n", products.Where(a => a.GetType() == typeof(GPU)).Select(a => ((GPU)a).FormatToTxt()).ToList()));
-                CPUs_Txt.WriteLine(string.Join("\r\n", products.Where(a => a.GetType() == typeof(RAM)).Select(a => ((RAM)a).FormatToTxt()).ToList()));
-                CPUs_Txt.WriteLine(string.Join("\r\n", products.Where(a => a.GetType() == typeof(HardDrive)).Select(a => ((HardDrive)a).FormatToTxt()).ToList()));
-                CPUs_Txt.WriteLine(string.Join("\r\n", products.Where(a => a.GetType() == typeof(Display)).Select(a => ((Display)a).FormatToTxt()).ToList()));
-                CPUs_Txt.WriteLine(string.Join("\r\n", products.Where(a => a.GetType() == typeof(Laptop)).Select(a => ((Laptop)a).FormatToTxt()).ToList()));
+                GPUs_Txt.WriteLine(string.Join("\r\n", products.Where(a => a.GetType() == typeof(GPU)).Select(a => ((GPU)a).FormatToTxt()).ToList()));
+                RAMs_Txt.WriteLine(string.Join("\r\n", products.Where(a => a.GetType() == typeof(RAM)).Select(a => ((RAM)a).FormatToTxt()).ToList()));
+                HardDrives_Txt.WriteLine(string.Join("\r\n", products.Where(a => a.GetType() == typeof(HardDrive)).Select(a => ((HardDrive)a).FormatToTxt()).ToList()));
+                Displays.WriteLine(string.Join("\r\n", products.Where(a => a.GetType() == typeof(Display)).Select(a => ((Display)a).FormatToTxt()).ToList()));
+                Laptops.WriteLine(string.Join("\r\n", products.Where(a => a.GetType() == typeof(Laptop)).Select(a => ((Laptop)a).FormatToTxt()).ToList()));
             }
             catch (IOException ioex)
             {

@@ -28,7 +28,7 @@ namespace LaptopWebshop
 
         public override string FormatToTxt() => string.Format("{0};{1};{2};{3}", name, brand, memory, clockRate);
         
-        public override string ToString() => string.Format("Memory: {0}, clock rate: {1}", memory, clockRate);
+        public override string ToString() => string.Format("{0}, Memory: {1}, clock rate: {2}", base.ToString(), memory, clockRate);
     }
 }
 

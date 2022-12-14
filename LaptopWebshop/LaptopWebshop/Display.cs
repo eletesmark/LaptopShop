@@ -30,7 +30,7 @@ namespace LaptopWebshop
 
         public override string FormatToTxt() => string.Format("{0};{1};{2};{3};{4}", name, brand, size, resolution.Item1, resolution.Item2);
         
-        public override string ToString() => string.Format("Size: {0}, Resolution: {1}x{2}", size, resolution.Item1, resolution.Item2);
+        public override string ToString() => string.Format("{0}, Size: {1}, Resolution: {2}x{3}", base.ToString(), size, resolution.Item1, resolution.Item2);
     }
 }
 

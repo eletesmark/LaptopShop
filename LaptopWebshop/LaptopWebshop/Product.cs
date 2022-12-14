@@ -19,7 +19,7 @@ namespace LaptopWebshop
 
         public abstract string FormatToTxt();
 
-        public override string ToString() => string.Format("ID: {0}\r\n -Name: {1}\r\n -Brand: {2}\r\n -Price: {3:C}", id, name, brand );
+        public override string ToString() => string.Format("Name: {0}, Brand: {1}", name, brand);
     }
 }
 

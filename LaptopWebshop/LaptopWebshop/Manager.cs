@@ -5,7 +5,7 @@ namespace LaptopWebshop
 {
     public class Manager : RegisteredUser
     {
-        public static readonly string menu = "\r\n  1.List products\r\n  2.Add new product\r\n  3.Modify product\r\n  4.Delete product\r\n  5.Stats\r\n  6.Change lucky-wheel's discounts\r\n  7.Logout\r\n  8.Exit";
+        public static readonly string menu = "  1.List products\r\n  2.Add new product\r\n  3.Modify product\r\n  4.Delete product\r\n  5.Stats\r\n  6.Change lucky-wheel's discounts\r\n  7.Logout\r\n  8.Exit";
 
         public Manager(string username, string name, string password, DateOnly birth) : base(username, name, password, birth) { }
 
@@ -15,7 +15,7 @@ namespace LaptopWebshop
 
         public override string Type() => "Manager";
 
-        public void addNewProduct()
+        public void AddNewProduct()
         {
             Console.WriteLine("\r\nProduct types: ");
             Console.WriteLine("  1.CPU");
@@ -92,7 +92,7 @@ namespace LaptopWebshop
                     Program.WriteSucces("Display added successfully!");
                     break;
                 case 6:
-                    Console.WriteLine("Components:/r/n{0}", string.Join("\r\n", Warehouse.ListProducts(a => a.GetType() != typeof(Laptop)).OrderBy(a => a.GetType()).Select(a =>  string.Format("ID: {0}, {1}", a.id, a.ToString())).ToList()));
+                    Console.WriteLine("Components:\r\n{0}", string.Join("\r\n", Warehouse.ListProducts(a => a.GetType() != typeof(Laptop)).OrderBy(a => a.GetType().Name).Select(a => string.Format("ID: {0}, {1}, {2}", a.id, a.GetType().Name, a.ToString())).ToList()));
                     Program.GetInput(ref tmpName, "Laptop name");
                     Program.GetInput(ref tmpBrand, "Laptop brand");
                     Program.GetInput(ref tmpCPUid, "Laptop CPU ID");
@@ -103,8 +103,8 @@ namespace LaptopWebshop
                     Program.GetInput(ref tmpWeight, "Laptop weight");
                     Program.GetInput(ref tmpPrice, "Laptop price");
                     if (Warehouse.products.Where(a => a.GetType() == typeof(CPU)).Any(a => a.id == tmpCPUid)
-                        && Warehouse.products.Where(a => a.GetType() == typeof(GPU)).Any(a => a.id == tmpRAMid)
-                        && Warehouse.products.Where(a => a.GetType() == typeof(RAM)).Any(a => a.id == tmpGPUid)
+                        && Warehouse.products.Where(a => a.GetType() == typeof(GPU)).Any(a => a.id == tmpGPUid)
+                        && Warehouse.products.Where(a => a.GetType() == typeof(RAM)).Any(a => a.id == tmpRAMid)
                         && Warehouse.products.Where(a => a.GetType() == typeof(HardDrive))
                             .Any(a => a.id == tmpHardDRiveid)
                         && Warehouse.products.Where(a => a.GetType() == typeof(Display)).Any(a => a.id == tmpDisplayid))
@@ -123,13 +123,13 @@ namespace LaptopWebshop
             }
         }
         
-        public void addNewPrize(int prize)
+        public void AddNewPrize(int prize)
         {
             LuckyWheel.getPrizes().Add(prize);
         }
 
         //deletes all prize with the same value
-        public void deletePrize(int prize)
+        public void DeletePrize(int prize)
         {
             LuckyWheel.getPrizes().Remove(prize);
         }

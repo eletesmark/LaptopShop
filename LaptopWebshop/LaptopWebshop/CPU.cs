@@ -21,14 +21,14 @@ namespace LaptopWebshop
 
             double.TryParse(t[2], out double _clockRate);
             this.clockRate = _clockRate;
-
+            
             int.TryParse(t[3], out int _cores);
             this.cores = _cores;
         }
 
         public override string FormatToTxt() => string.Format("{0};{1};{2};{3}", name, brand, clockRate, cores);
 
-        public override string ToString() => string.Format("Clock rate: {0}, cores: {1}", clockRate, cores);
+        public override string ToString() => string.Format("{0}, Clock rate: {1}, cores: {2}", base.ToString(), clockRate, cores);
 	}
 }
 

@@ -28,7 +28,7 @@ namespace LaptopWebshop
 
         public override string FormatToTxt() => string.Format("{0};{1};{2};{3}", name, brand, size, speed);
         
-        public override string ToString() => string.Format("Size: {0}, speed: {1}", size, speed);
+        public override string ToString() => string.Format("{0}, Size: {1}, speed: {2}", base.ToString(), size, speed);
     }
 }
 

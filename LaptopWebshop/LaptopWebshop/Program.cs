@@ -16,6 +16,8 @@ namespace LaptopWebshoop
             currentUser = new Guest();
 
             UserStorage.ReadUsersTxt();
+            Warehouse.ReadProductsTxt();
+            OrderStorage.ReadOrdersTxt();
         }
 
         public static void Main(string[] args)
@@ -131,7 +133,7 @@ namespace LaptopWebshoop
                 case 2:
                     Registration();
                     break;
-                //case 3: ListLaptops(); break;
+                case 3: currentUser.ListLaptops(); break;
                 case 4:
                     WriteTxts();
                     Environment.Exit(0); 
@@ -179,8 +181,8 @@ namespace LaptopWebshoop
 
             switch (n)
             {
-                case 1: //ListProducts(); break;
-                case 2: ((Manager)currentUser).addNewProduct(); break;
+                case 1: currentUser.ListLaptops(); break;
+                case 2: ((Manager)currentUser).AddNewProduct(); break;
                 case 3: //ModifyProduct(); break;
                 case 4: //DeleteProduct(); break;
                 case 5: //ShowStats(); break;
@@ -210,19 +212,20 @@ namespace LaptopWebshoop
             {
                 case 1:
                     AddManagerRole();
-                    AdminMenu();
                     break;
                 case 2: //ListOrders(); AdminMenu(); break;
-                case 3: ListUsers(); AdminMenu(); break;
-                case 4: SearchUser(); AdminMenu();  break;
-                case 5: DeleteUser(); AdminMenu(); break;
+                case 3: ListUsers(); break;
+                case 4: SearchUser(); break;
+                case 5: DeleteUser(); break;
                 case 6:
                     Logout();
                     break;
-                case 7: return;
+                case 7:
+                    WriteTxts();
+                    Environment.Exit(0); 
+                    break;
                 default:
                     WriteError("Invalid input! Try again:");
-                    AdminMenu();
                     break;
             }
         }
