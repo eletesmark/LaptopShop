@@ -33,8 +33,6 @@ namespace LaptopWebshop
         {
             products.Clear();
 
-            Console.WriteLine(File.ReadAllLines("CPUs.txt").Length);
-            
             if (File.Exists("CPUs.txt"))
                 products.AddRange(File.ReadAllLines("CPUs.txt").Where(a => a.Split(';').Length == 4).Select(a => new CPU(a)).ToList());
 
