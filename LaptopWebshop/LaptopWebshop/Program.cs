@@ -223,7 +223,9 @@ namespace LaptopWebshoop
                 case 1:
                     AddManagerRole();
                     break;
-                case 2: //ListOrders(); AdminMenu(); break;
+                case 2:
+                    ((Admin)currentUser).ListOrders();
+                    break;
                 case 3:
                     ListUsers();
                     break;
@@ -327,7 +329,7 @@ namespace LaptopWebshoop
                 var user = Admin.SearchUser(username);
                 if (user is null)
                 {
-                   WriteError("There is no user with this username! Try again or type '0' to exit"); 
+                   WriteError("There is no user with this username! Try again or type '0' to exit");
                    continue;
                 }
 
@@ -401,7 +403,7 @@ namespace LaptopWebshoop
 
                     Console.WriteLine(discount);
                     Manager.AddNewPrize(discount);
-                    Console.WriteLine("Discount successfully added!");
+                   Program.WriteSucces("Discount successfully added!");
                     break;
                 }
                 case "2":

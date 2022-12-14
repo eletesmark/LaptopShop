@@ -127,6 +127,8 @@ namespace LaptopWebshop
                     break;
             }
         }
+        
+        
 
         public void ModifyProduct()
         {
@@ -276,6 +278,7 @@ namespace LaptopWebshop
             }
             Console.WriteLine("Total revenue: {0}", sum);
         }
+        
     }
 }
 
