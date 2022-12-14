@@ -19,9 +19,7 @@ namespace LaptopWebshop
         }
 
         public override string Type() => "Admin";
-
-
-        //BUG rosszul menti el az új managert: más a jelszó mint az eredeti
+        
         public static void AddManagerRole(string username)
         {
             RegisteredUser user = UserStorage.GetUser(username) ;

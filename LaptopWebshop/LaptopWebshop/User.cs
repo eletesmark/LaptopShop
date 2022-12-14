@@ -7,14 +7,14 @@ namespace LaptopWebshop
 {
 	public abstract class User
 	{
-        protected Order order { get; set; }
+        public Order order { get; set; }
 
         //Alap konstruktor a vendéghez
         public User()
         {
             order = new Order();
         }
-
+        
         public abstract string Type();
 
         public void ListLaptops()

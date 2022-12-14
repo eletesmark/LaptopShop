@@ -56,10 +56,7 @@ namespace LaptopWebshop
 
         //Formázott kiírás a txt-be mentéshez
         public string FormatToTxt() => string.Format("{0}#{1}#{2}#{3}#{4}#{5}#{6}", username, name, password, birth.ToString("yyyy.MM.dd"), lastSpin.ToString("yyyy.MM.dd HH:mm:ss"), discount.ToString(), order.cart.Count == 0 ? string.Empty : order.FormatToTxt());
-
-        //Hash password - https://www.codeproject.com/Questions/523323/Encryptingpluspasswordplusinplusc-23
         
-        //ha false dobhatsz szép errort ha már megírtad a functiont
         public void spin()
         {
             
@@ -145,8 +142,8 @@ namespace LaptopWebshop
             OrderStorage.AddOrder(order);
 
             order = new Order();
-            Program.WriteSucces("Successfully ordered!");
-            Console.WriteLine($"\r\nYou have to pay: {price}Ft");
+            Program.WriteSucces("\nSuccessfully ordered!");
+            Console.WriteLine($"\r\nYou have to pay: ${price}");
 
         }
     }
