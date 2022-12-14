@@ -15,7 +15,14 @@ namespace LaptopWebshop
         }
 
         public abstract string Type();
-        
+
+        public void ListLaptops()
+        {
+            foreach (var laptop in Warehouse.ListProducts(a => a.GetType() == typeof(Laptop)))
+                Console.WriteLine(laptop.ToString());
+
+            //Console.WriteLine(string.Join("\r\n", Warehouse.ListProducts(a => a.GetType() == typeof(Laptop)).Select(a => a.ToString()).ToList()));
+        }
 
         void getPrizes()
         {

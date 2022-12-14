@@ -6,7 +6,7 @@ namespace LaptopWebshop
 		public double clockRate { get; private set; }
 		public int cores { get; private set; }
 
-        public CPU(string name, string brand, int price, double clockRate, int cores) : base(name, brand)
+        public CPU(string name, string brand, double clockRate, int cores) : base(name, brand)
 		{
 			this.clockRate = clockRate;
 			this.cores = cores;
@@ -27,6 +27,8 @@ namespace LaptopWebshop
         }
 
         public override string FormatToTxt() => string.Format("{0};{1};{2};{3}", name, brand, clockRate, cores);
-    }
+
+        public override string ToString() => string.Format("Clock rate: {0}, cores: {1}", clockRate, cores);
+	}
 }
 

@@ -30,7 +30,6 @@
 
             if (t.Length < 26)
             {
-                
                 return;
             }
                 
@@ -62,17 +61,19 @@
 
         public override string FormatToTxt() => string.Format("{0};{1};{2};{3};{4};{5};{6};{7};{8};{9}", name, brand, processor.FormatToTxt(), graphicsCard.FormatToTxt(), memory.FormatToTxt(), storage.FormatToTxt(), screen.FormatToTxt(), weight, count, price);
 
+        public override string ToString() => string.Format("ID: {0}: Name: {1}, Brand: {2}, Weight: {3} Kg, Count: {4}, Price: {5:C}, CPU: {6}, GPU: {7}, RAM: {8}, HardDrive: {9}, Screen: {10}", id, name, brand, weight, count, price, processor.ToString(), graphicsCard.ToString(), memory.ToString(), storage.ToString(), screen.ToString());
+
         //use this to create a laptop from the console
-        // public Laptop(string name, string brand, int price, int cpuID, int gpuID, int ramID, int storageID,
-        //  int screenID, double weight) : base(name, brand, price)
-        // {
-        //  processor = Warehouse.products.Where(GetType() == CPU )
-        //  graphicsCard = Warehouse.GraphicsCards[gpuID];
-        //  memory = Warehouse.Rams[ramID];
-        //  storage = Warehouse.StorageDrives[storageID];
-        //  screen = Warehouse.Screens[screenID];
-        //  this.weight = weight;
-        //  count = 0;
-        // }
+         public Laptop(string name, string brand, int cpuID, int gpuID, int ramID, int storageID, int screenID, double weight, int price) : base(name, brand)
+         {
+              processor = (CPU)Warehouse.products.FirstOrDefault(a => a.id == cpuID);        
+              graphicsCard = (GPU)Warehouse.products.FirstOrDefault(a => a.id == gpuID);
+              memory = (RAM)Warehouse.products.FirstOrDefault(a => a.id == ramID); 
+              storage = (HardDrive)Warehouse.products.FirstOrDefault(a => a.id == storageID); 
+              screen = (Display)Warehouse.products.FirstOrDefault(a => a.id == screenID); 
+              this.weight = weight;
+              count = 0;
+              this.price = price;
+         }
     }
 }

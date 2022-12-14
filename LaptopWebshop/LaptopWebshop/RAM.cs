@@ -6,7 +6,7 @@ namespace LaptopWebshop
 		public int size { get; private set; }
 		public double speed { get; private set; }
 
-        public RAM(string name, string brand, int price, int size, double speed) : base(name, brand)
+        public RAM(string name, string brand, int size, double speed) : base(name, brand)
         {
             this.size = size;
             this.speed = speed;
@@ -27,7 +27,8 @@ namespace LaptopWebshop
         }
 
         public override string FormatToTxt() => string.Format("{0};{1};{2};{3}", name, brand, size, speed);
-
+        
+        public override string ToString() => string.Format("Size: {0}, speed: {1}", size, speed);
     }
 }
 

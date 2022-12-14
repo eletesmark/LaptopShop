@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using System.IO;
+using System.Net.Mime;
 using System.Xml.Linq;
 using LaptopWebshop;
 
@@ -26,46 +27,102 @@ namespace LaptopWebshoop
 
             Program program = new Program();
 
-            program.GuestMenu();
+            program.Menu();
+        }
 
+        void Menu()
+        {
+            while (true)
+            {
+                switch (currentUser.Type())
+                {
+                    case "Guest":
+                        GuestMenu(); 
+                        break;
+                    case "Registered user": 
+                        RegisteredMenu();
+                        break;
+                    case "Manager": 
+                        ManagerMenu();
+                        break;
+                    case "Admin": 
+                        AdminMenu();
+                        break;
+                    default: 
+                        WriteError("Invalid input! Try again:"); 
+                        break;
+                }
+            }
+        }
+
+        void WriteTxts()
+        {
             UserStorage.WriteToTxt();
+            Warehouse.WriteProductsToTxt();
+            OrderStorage.WriteOrdersToTxt();
         }
 
         //Writers
-        void WriteError(string msg)
+        public static void WriteError(string msg)
         {
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("\t{0}", msg);
             Console.ForegroundColor = ConsoleColor.Gray;
         }
 
-        void WriteSucces(string msg)
+        public static void WriteSucces(string msg)
         {
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("\t{0}", msg);
             Console.ForegroundColor = ConsoleColor.Gray;
         }
 
-        void WriteCustom(string msg, ConsoleColor cc)
+        public static void WriteCustom(string msg, ConsoleColor cc)
         {
             Console.ForegroundColor = cc;
             Console.WriteLine("\t{0}", msg);
             Console.ForegroundColor = ConsoleColor.Gray;
+        }
+        
+        //GetInput
+        public static void GetInput(ref string param, string msg)
+        {
+            do
+            {
+                Console.Write("\t{0}: ", msg);
+                param = Console.ReadLine() ?? string.Empty; // Ha a Console.ReadLine() null értékkel tér vissza akkor helyette 'string.Empty' lesz a param értéke (különben warning lenne, mivel a string 'non-nullable reference' típus)
+                if (param.Trim().Equals(string.Empty) || param.Length < 3)
+                    WriteError("Invalid input! Please try again");
+            } while (param.Trim().Equals(string.Empty) || param.Length < 3);
+        }
+        
+        public static void GetInput(ref int param, string msg)
+        {
+            Console.Write("\t{0}: ", msg);
+            while (!int.TryParse(Console.ReadLine(), out param))
+            {
+                WriteError("Invalid input! Please try again");
+                Console.Write("\t{0}: ", msg);
+            }
+        }
+        
+        public static void GetInput(ref double param, string msg)
+        {
+            Console.Write("\t{0}: ", msg);
+            while (!double.TryParse(Console.ReadLine(), out param))
+            {
+                WriteError("Invalid input! Please try again");
+                Console.Write("\t{0}: ", msg);
+            }
         }
 
         //GUEST Menu
         void GuestMenu()
         {
             Console.WriteLine("\r\nMenu:\r\n{0}", Guest.menu);
-
-            //Console.WriteLine("  1.Login");
-            //Console.WriteLine("  2.Registration");
-            //Console.WriteLine("  3.List laptops");
-            //Console.WriteLine("  4.Exit");
-
+            
             Console.Write("Please select an option: ");
-            int.TryParse(Console.ReadLine(),
-                out int n); //Beolvas egy sort és megpróbálja számmá alakítaní, ha nem sikerül 0 lesz az 'n' változó értéke
+            int.TryParse(Console.ReadLine(), out int n); //Beolvas egy sort és megpróbálja számmá alakítaní, ha nem sikerül 0 lesz az 'n' változó értéke
 
             switch (n)
             {
@@ -76,10 +133,12 @@ namespace LaptopWebshoop
                     Registration();
                     break;
                 //case 3: ListLaptops(); break;
-                case 4: return;
+                case 4:
+                    WriteTxts();
+                    Environment.Exit(0); 
+                    break;
                 default:
                     WriteError("Invalid input! Try again:");
-                    GuestMenu();
                     break;
             }
         }
@@ -89,28 +148,24 @@ namespace LaptopWebshoop
         {
             Console.WriteLine("\r\nMenu:\r\n{0}", RegisteredUser.menu);
 
-            //Console.WriteLine(" -1.List laptops");
-            //Console.WriteLine(" -2.Add to cart");
-            //Console.WriteLine(" -3.Show cart");
-            //Console.WriteLine(" -4.Logout");
-            //Console.WriteLine(" -5.Exit");
-
             Console.Write("Please select an option: ");
             int.TryParse(Console.ReadLine(),
                 out int n); //Beolvas egy sort és megpróbálja számmá alakítaní, ha nem sikerül 0 lesz az 'n' változó értéke
 
             switch (n)
             {
-                case 1: //ListLaptops(); break;
+                case 1: currentUser.ListLaptops(); break;
                 case 2: //AddToCart(); break;
                 case 3: //ShowCart(); break;
                 case 4:
                     Logout();
                     break;
-                case 5: return;
+                case 5:
+                    WriteTxts();
+                    Environment.Exit(0); 
+                    break;
                 default:
                     WriteError("Invalid input! Try again:");
-                    RegisteredMenu();
                     break;
             }
         }
@@ -119,15 +174,6 @@ namespace LaptopWebshoop
         {
             Console.WriteLine("\r\nMenu:\r\n{0}", Manager.menu);
 
-            //Console.WriteLine(" -1.List products");
-            //Console.WriteLine(" -2.Add new product");
-            //Console.WriteLine(" -3.Modify product");
-            //Console.WriteLine(" -4.Delete product");
-            //Console.WriteLine(" -5.Stats");
-            //Console.WriteLine(" -6.Change lucky-wheel's discounts");
-            //Console.WriteLine(" -7.Logout");
-            //Console.WriteLine(" -8.Exit");
-
             Console.Write("Please select an option: ");
             int.TryParse(Console.ReadLine(),
                 out int n); //Beolvas egy sort és megpróbálja számmá alakítaní, ha nem sikerül 0 lesz az 'n' változó értéke
@@ -135,33 +181,30 @@ namespace LaptopWebshoop
             switch (n)
             {
                 case 1: //ListProducts(); break;
-                case 2: //AddNewProduct(); break;
+                case 2: ((Manager)currentUser).addNewProduct(); break;
                 case 3: //ModifyProduct(); break;
                 case 4: //DeleteProduct(); break;
                 case 5: //ShowStats(); break;
                 case 6:
                     ChangeDiscounts();
-                    ManagerMenu();
                     break;
                 case 7:
                     Logout();
                     break;
-                case 8: return;
+                case 8: 
+                    WriteTxts();
+                    Environment.Exit(0); 
+                    break;
+                default:
+                    WriteError("Invalid input! Try again:");
+                    break;
             }
         }
 
         void AdminMenu()
         {
             Console.WriteLine("\r\nMenu:\r\n{0}", Admin.menu);
-
-            //Console.WriteLine(" -1.Add manager rule to user");
-            //Console.WriteLine(" -2.List orders");
-            //Console.WriteLine(" -3.List users");
-            //Console.WriteLine(" -4.Search user");
-            //Console.WriteLine(" -5.Delete user");
-            //Console.WriteLine(" -6.Logout");
-            //Console.WriteLine(" -7.Exit");
-
+            
             Console.Write("Please select an option: ");
             int.TryParse(Console.ReadLine(),
                 out int n); //Beolvas egy sort és megpróbálja számmá alakítaní, ha nem sikerül 0 lesz az 'n' változó értéke
@@ -170,20 +213,16 @@ namespace LaptopWebshoop
             {
                 case 1:
                     AddManagerRole();
-                    AdminMenu();
                     break;
                 case 2: //ListOrders(); AdminMenu(); break;
                 case 3:
                     ListUsers();
-                    AdminMenu();
                     break;
                 case 4:
                     SearchUser();
-                    AdminMenu();
                     break;
                 case 5:
                     DeleteUser();
-                    AdminMenu();
                     break;
                 case 6:
                     Logout();
@@ -191,40 +230,16 @@ namespace LaptopWebshoop
                 case 7: return;
                 default:
                     WriteError("Invalid input! Try again:");
-                    RegisteredMenu();
                     break;
             }
         }
-
-        //GetInput
-        void GetInput(ref string param, string msg, bool isPassword = false)
-        {
-            do
-            {
-                Console.Write("\t{0}: ", msg);
-                param = (isPassword ? ReadPassword() : Console.ReadLine()) ??
-                        string.Empty; // Ha a Console.ReadLine() null értékkel tér vissza akkor helyette 'string.Empty' lesz a param értéke (különben warning lenne, mivel a string 'non-nullable reference' típus)
-                if (param.Trim().Equals(string.Empty) || param.Length < 3)
-                    WriteError("Invalid input! Please try again");
-            } while (param.Trim().Equals(string.Empty) || param.Length < 3);
-        }
-
-        void GetInput(ref DateOnly param, string s)
-        {
-            Console.Write("\t{0}: ", s);
-            while (!DateOnly.TryParse(Console.ReadLine(), out param))
-            {
-                WriteError("Invalid input! Please try again");
-                Console.Write("\t{0}: ", s);
-            }
-        }
-
+        
         //Registration
         void Registration()
         {
             currentUser = Guest.Register();
             WriteSucces("You successfully registered!");
-            RegisteredMenu();
+            //RegisteredMenu();
         }
 
         //Login
@@ -234,6 +249,7 @@ namespace LaptopWebshoop
             if (currentUser.GetType() != typeof(Guest))
                 WriteSucces("You successfully logged in!");
 
+            /*
             switch (currentUser.Type())
             {
                 case "Registered user":
@@ -252,7 +268,9 @@ namespace LaptopWebshoop
                     WriteError("Unexpected error! Please try again!");
                     GuestMenu();
                     break;
+                   
             }
+             */
         }
 
         //Logout
@@ -263,6 +281,12 @@ namespace LaptopWebshoop
             GuestMenu();
         }
 
+        void AddNewProduct()
+        {
+            Console.WriteLine();
+            Console.WriteLine("  1. CPU");
+        }
+        
         //TODO szépen kiírni
         public void AddManagerRole()
         {
@@ -270,13 +294,11 @@ namespace LaptopWebshoop
             {
                 return;
             }
-
             Console.WriteLine("username: ");
             string username = Console.ReadLine();
 
             Admin.AddManagerRole(username);
         }
-
         //TODO szépen kiírni
         public void ListUsers()
         {
@@ -287,7 +309,7 @@ namespace LaptopWebshoop
             }
             Admin.ListUsers();
         }
-
+        
         //TODO szépen megírni a kiírást
         public void SearchUser()
         {

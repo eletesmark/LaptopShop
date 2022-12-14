@@ -10,6 +10,7 @@ namespace LaptopWebshop
 		public static void AddNewProduct(Product newProduct)
 		{
 			products.Add(newProduct);
+            WriteProductsToTxt();
 		}
 
 		public static void ModifyProduct(int id, Product product)
