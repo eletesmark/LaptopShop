@@ -22,6 +22,11 @@ namespace LaptopWebshop
         
         public static void AddManagerRole(string username)
         {
+            if (UserStorage.GetUser(username) == null)
+            {
+                Program.WriteError("Invalid username!");
+                return;
+            }
             RegisteredUser user = UserStorage.GetUser(username) ;
             if (user == null) return;
             if (user.GetType() == typeof(RegisteredUser))

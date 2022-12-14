@@ -12,7 +12,7 @@ namespace LaptopWebshop
 
         public static RegisteredUser GetUser(string username)
         {
-            return users[username];
+            return users.ContainsKey(username) ? users[username] : null;
         }
 
         public static void AddUser(RegisteredUser u)

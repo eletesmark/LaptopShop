@@ -442,7 +442,7 @@ namespace LaptopWebshoop
         public void ChangeDiscounts()
         {
             User.ListPrizes();
-            Console.Write("1.add new discount \n2.delete a discount");
+            Console.WriteLine("1.add new discount \n2.delete a discount");
             Console.Write("Please select an option: ");
             string res = Console.ReadLine();
             switch (res)
