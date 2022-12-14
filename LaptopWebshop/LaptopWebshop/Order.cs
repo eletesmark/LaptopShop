@@ -60,4 +60,5 @@ public class Order
 
     public string FormatToTxt() => string.Format("{0}#{1}#{2}#{3}", username, string.Join("|", cart.Select(a => a.FormatToTxt()).ToList()), date.ToString("yyyy.MM.dd HH:mm:ss"), address );
 
+    public override string ToString() => string.Format("Username: {0}, Laptops: {1}, Date: {2}, Address: {3}", username, string.Join("|", cart.Select(a => a.ToString()).ToList()), date.ToString("yyyy.MM.dd HH:mm:ss"), address);
 }
