@@ -20,7 +20,7 @@ public class Order
     {
         id = ++count;
         
-        string[] t = line.Split(',');
+        string[] t = line.Split('#');
 
         if (t.Length < 4)
         {
@@ -58,6 +58,6 @@ public class Order
         return cart.Sum(l => l.price);
     }
 
-    public string FormatToTxt() => string.Format("{0},{1},{2},{3}", username, string.Join("|", cart.Select(a => a.FormatToTxt()).ToList()), date.ToString("yyyy.MM.dd HH:mm:ss"), address );
+    public string FormatToTxt() => string.Format("{0}#{1}#{2}#{3}", username, string.Join("|", cart.Select(a => a.FormatToTxt()).ToList()), date.ToString("yyyy.MM.dd HH:mm:ss"), address );
 
 }

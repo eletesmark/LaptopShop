@@ -28,7 +28,7 @@ public class OrderStorage
         Orders.Clear();
 
         if (File.Exists("orders.txt"))
-            Orders.AddRange(File.ReadAllLines("orders.txt").Where(a => a.Split(',').Length == 4).Select(a => new Order(a)).ToList());
+            Orders.AddRange(File.ReadAllLines("orders.txt").Where(a => a.Split('#').Length == 4).Select(a => new Order(a)).ToList());
     }
 
     public static void WriteOrdersToTxt()
