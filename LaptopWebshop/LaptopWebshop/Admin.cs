@@ -38,14 +38,20 @@
         //     }
         // }
         
-        public static List<RegisteredUser> ListUsers()
+        public static void ListUsers()
         {
-            if (UserStorage.GetUsers().Count < 1)
+            List<RegisteredUser> users = UserStorage.GetUsers();
+            if (users is null)
             {
                 throw new Exception("There are no users!");
                 //return null;
             }
-            return UserStorage.GetUsers();
+
+            Console.WriteLine("Users: ");
+            foreach (var u in users)
+            {
+                Console.WriteLine($"{u.Type()} | username: {u.username} | name: {u.name} | birthdate: {u.birth} | last spin:{u.lastSpin}");
+            }
             
         }
         

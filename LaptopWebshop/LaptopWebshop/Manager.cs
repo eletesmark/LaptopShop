@@ -125,13 +125,13 @@ namespace LaptopWebshop
         
         public void AddNewPrize(int prize)
         {
-            LuckyWheel.getPrizes().Add(prize);
+            LuckyWheel.addNewPrize(prize);
         }
 
         //deletes all prize with the same value
         public void DeletePrize(int prize)
         {
-            LuckyWheel.getPrizes().Remove(prize);
+            LuckyWheel.deletePrize(prize);
         }
     }
 }

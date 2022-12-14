@@ -18,6 +18,7 @@ namespace LaptopWebshoop
             UserStorage.ReadUsersTxt();
             Warehouse.ReadProductsTxt();
             OrderStorage.ReadOrdersTxt();
+            LuckyWheel.ReadPrizesTxt();
         }
 
         public static void Main(string[] args)
@@ -186,7 +187,9 @@ namespace LaptopWebshoop
                 case 3: //ModifyProduct(); break;
                 case 4: //DeleteProduct(); break;
                 case 5: //ShowStats(); break;
-                case 6: //ChangeDiscounts(); break;
+                case 6:
+                    ChangeDiscounts();
+                    break;
                 case 7:
                     Logout();
                     break;
@@ -214,9 +217,15 @@ namespace LaptopWebshoop
                     AddManagerRole();
                     break;
                 case 2: //ListOrders(); AdminMenu(); break;
-                case 3: ListUsers(); break;
-                case 4: SearchUser(); break;
-                case 5: DeleteUser(); break;
+                case 3:
+                    ListUsers();
+                    break;
+                case 4:
+                    SearchUser();
+                    break;
+                case 5:
+                    DeleteUser();
+                    break;
                 case 6:
                     Logout();
                     break;
@@ -242,7 +251,8 @@ namespace LaptopWebshoop
         void Login()
         {
             currentUser = RegisteredUser.login();
-            WriteSucces("You successfully logged in!");
+            if (currentUser.GetType() != typeof(Guest))
+                WriteSucces("You successfully logged in!");
 
             /*
             switch (currentUser.Type())
@@ -256,11 +266,14 @@ namespace LaptopWebshoop
                 case "Admin":
                     AdminMenu();
                     break;
+                case "Guest":
+                    GuestMenu();
+                    break;
                 default:
                     WriteError("Unexpected error! Please try again!");
-                    //GuestMenu();
-                    return;
+                    GuestMenu();
                     break;
+                   
             }
             */
         }
@@ -296,16 +309,10 @@ namespace LaptopWebshoop
         {
             if (currentUser.Type() != "Admin")
             {
-                Console.WriteLine("How ?");
+                Console.WriteLine("How did you get here? You're no admin!");
                 return;
             }
-            // ne kérdezd én sem vágom, de az adminnak kell ezt csinálnia sooo...
-            var users = Admin.ListUsers();
-            
-            foreach (var u in users)
-            {
-                Console.WriteLine(u.username + " "+ u.name+ " "+u.Type());
-            }
+            Admin.ListUsers();
         }
         
         //TODO szépen megírni a kiírást
@@ -314,12 +321,14 @@ namespace LaptopWebshoop
             Console.WriteLine("Username you want to search for: ");
             string username = Console.ReadLine();
             User u = Admin.SearchUser(username);
-            if (u!= null)
+            if (u != null)
             {
                 return;
             }
+
             Console.WriteLine("There is no user with this username!");
         }
+
         //TODO szépen megírni a kiírást, lehetne szebben
         public void DeleteUser()
         {
@@ -338,8 +347,102 @@ namespace LaptopWebshoop
             {
                 Console.WriteLine("There's no user with this userName!");
             }
+
             Console.WriteLine("User Successfully deleted!");
             AdminMenu();
+        }
+
+        public void ChangeDiscounts()
+        {
+            printPrizes();
+            Console.Write("1.add new discount \n2.delete a discount");
+            Console.Write("Please select an option: ");
+            string res = Console.ReadLine();
+            switch (res)
+            {
+                case "1":
+                {
+                    int discount = -1;
+                    //while discount is not between 0 and 100
+                    while (true)
+                    {
+                        try
+                        {
+                            Console.Write("Enter the discount: ");
+                            discount = Convert.ToInt32(Console.ReadLine());
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine("This is not a number!");
+                        }
+                        Console.WriteLine(discount);
+
+                        if (discount is <= 0 or >= 100)
+                        {
+                            WriteError("Prize should be between 0 and 100!");
+                            continue;
+                        }
+                        break;
+                    }
+
+                    Console.WriteLine(discount);
+                    LuckyWheel.addNewPrize(discount);
+                    Console.WriteLine("Discount successfully added!");
+                    break;
+                }
+                case "2":
+                {
+                    int prizeID = -1;
+                    while (prizeID < 0)
+                    {
+                        try
+                        {
+                            Console.Write("Enter the id of the discount: ");
+                            prizeID = Convert.ToInt32(Console.ReadLine());
+                        }
+                        catch (Exception e)
+                        {
+                            WriteError("This is not a number!");
+                        }
+                    }
+
+                    if (prizeID > LuckyWheel.getPrizes().Count)
+                    {
+                        WriteError("There is no prize with this id!\n Returning to Menu");
+                        return;
+                    }
+
+                    LuckyWheel.deletePrize(prizeID);
+
+                    WriteSucces("Prize successfully deleted!");
+                    break;
+                }
+                default:
+                {
+                    WriteError("Invalid input!");
+                    break;
+                }
+            }
+        }
+
+        public void printPrizes()
+        {
+            List<int> prizes = LuckyWheel.getPrizes();
+
+            if (prizes == null)
+            {
+                Console.WriteLine("\nThere are no prizes at the moment. Please come back later!");
+                return;
+            }
+
+            int id = 1;
+            foreach (var prize in prizes)
+            {
+                Console.WriteLine(id + ". - " + prize + "%");
+                id++;
+            }
+
+            Console.WriteLine();
         }
 
         //Password reader - https://www.c-sharpcorner.com/forums/password-in-c-sharp-console-application
