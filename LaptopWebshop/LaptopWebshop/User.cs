@@ -67,10 +67,17 @@ namespace LaptopWebshop
                     Console.WriteLine(laptop.ToString());
         }
 
-        public void RemoveFromCart(int id)
+        public void RemoveFromCart()
         {
+            ShowCart();
+            if(order.cart.Count == 0)
+                return;
+            
+            int id = 0;
+            Program.GetInput(ref id, "\r\nChoose a Laptop ID");
+
             if(id > 0 && id < order.cart.Count)
-                order.cart.Remove(order.cart[id - 1]);
+                order.cart.RemoveAt(id-1);
         }
     }
 }
