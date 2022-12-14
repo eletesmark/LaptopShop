@@ -133,6 +133,8 @@ namespace LaptopWebshop
                     break;
             }
         }
+        
+        
 
         public static void AddNewPrize(int prize)
         {
@@ -156,5 +158,6 @@ namespace LaptopWebshop
             }
             Console.WriteLine("Total revenue: {0}", sum);
         }
+        
     }
 }

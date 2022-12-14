@@ -1,4 +1,6 @@
 ﻿using LaptopWebshoop;
+using System;
+
 
 namespace LaptopWebshop
 {
@@ -81,7 +83,20 @@ namespace LaptopWebshop
             }
             return null;
         }
-        
+
+        public void ListOrders()
+        {
+            List<Order> orders = OrderStorage.GetOrders();
+            if (orders.Count == 0)
+            {
+                Program.WriteError("There are no completed orders!");
+                return;
+            }
+            foreach (var order in orders)
+            {
+                Console.WriteLine(order.ToString());
+            }
+        }
         
     }
 }
