@@ -14,6 +14,10 @@ public class Order
         cart = new List<Laptop>();
         date = DateTime.Now;
         address = string.Empty;
+        // foreach (var item in cart)
+        // {
+        //     totalPrice += item.price;
+        // }
     }
     
     public Order(string line)
@@ -53,7 +57,7 @@ public class Order
     public DateTime date { get; set; }
     public string address { get; set; }
     
-    int getSum()
+    public int getSum()
     {
         return cart.Sum(l => l.price);
     }

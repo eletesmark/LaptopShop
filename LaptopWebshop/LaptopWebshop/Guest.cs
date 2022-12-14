@@ -31,11 +31,12 @@ namespace LaptopWebshop
 					continue;
 		        }
 
-		        if (username is "0" or "")
+		        if (username is "")
 		        {
-			        Program.WriteError("Username cannot be empty or '0");
+			        Program.WriteError("Username cannot be empty");
 			        continue;
 		        }
+		        
 		        break;
 	        }
 

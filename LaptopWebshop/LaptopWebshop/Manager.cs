@@ -24,10 +24,10 @@ namespace LaptopWebshop
             Console.WriteLine("  4.HardDrive");
             Console.WriteLine("  5.Display");
             Console.WriteLine("  6.Laptop");
-            
+
             int n = 0;
             Program.GetInput(ref n, "Choose a product type");
-            
+
             string tmpName = string.Empty; //All
             string tmpBrand = string.Empty; //All
             double tmpClockRate = 0; //CPU, GPU
@@ -92,7 +92,11 @@ namespace LaptopWebshop
                     Program.WriteSucces("Display added successfully!");
                     break;
                 case 6:
-                    Console.WriteLine("Components:\r\n{0}", string.Join("\r\n", Warehouse.ListProducts(a => a.GetType() != typeof(Laptop)).OrderBy(a => a.GetType().Name).Select(a => string.Format("ID: {0}, {1}, {2}", a.id, a.GetType().Name, a.ToString())).ToList()));
+                    Console.WriteLine("Components:\r\n{0}",
+                        string.Join("\r\n",
+                            Warehouse.ListProducts(a => a.GetType() != typeof(Laptop)).OrderBy(a => a.GetType().Name)
+                                .Select(a => string.Format("ID: {0}, {1}, {2}", a.id, a.GetType().Name, a.ToString()))
+                                .ToList()));
                     Program.GetInput(ref tmpName, "Laptop name");
                     Program.GetInput(ref tmpBrand, "Laptop brand");
                     Program.GetInput(ref tmpCPUid, "Laptop CPU ID");
@@ -115,6 +119,7 @@ namespace LaptopWebshop
                         Console.WriteLine("Invalid component ID(s)!");
                         break;
                     }
+
                     Program.WriteSucces("Laptop added successfully!");
                     break;
                 default:
@@ -248,16 +253,28 @@ namespace LaptopWebshop
             Warehouse.DeleteProduct(n);
             Program.WriteSucces("Deleted successfully!");
         }
-        
-        public void AddNewPrize(int prize)
+
+        public static void AddNewPrize(int prize)
         {
             LuckyWheel.addNewPrize(prize);
         }
 
         //deletes all prize with the same value
-        public void DeletePrize(int prize)
+        public static void DeletePrize(int prize)
         {
             LuckyWheel.deletePrize(prize);
+        }
+
+        public void GetTotalRevenue()
+        {
+            //write out the sum of all orders in orderStorage
+            int sum = 0;
+            var orders = OrderStorage.GetOrders();
+            foreach (var order in orders)
+            {
+                sum += order.getSum();
+            }
+            Console.WriteLine("Total revenue: {0}", sum);
         }
     }
 }
