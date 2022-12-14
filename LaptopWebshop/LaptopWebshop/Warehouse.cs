@@ -33,22 +33,22 @@ namespace LaptopWebshop
             products.Clear();
 
             if (File.Exists("CPUs.txt"))
-                products.AddRange(File.ReadAllLines("CPUs.txt").Where(a => a.Split(';').Length == 4).Select(a => new CPU(a)).DistinctBy(a => a.id).Where(a => !products.Any(b => b.id == a.id)).ToList());
+                products.AddRange(File.ReadAllLines("CPUs.txt").Where(a => a.Split(';').Length == 4).Select(a => new CPU(a)).ToList());
 
             if (File.Exists("GPUs.txt"))
-                products.AddRange(File.ReadAllLines("GPUs.txt").Where(a => a.Split(';').Length == 4).Select(a => new GPU(a)).DistinctBy(a => a.id).Where(a => !products.Any(b => b.id == a.id)).ToList());
+                products.AddRange(File.ReadAllLines("GPUs.txt").Where(a => a.Split(';').Length == 4).Select(a => new GPU(a)).ToList());
 
             if (File.Exists("RAMs.txt"))
-                products.AddRange(File.ReadAllLines("RAMs.txt").Where(a => a.Split(';').Length == 4).Select(a => new RAM(a)).DistinctBy(a => a.id).Where(a => !products.Any(b => b.id == a.id)).ToList());
+                products.AddRange(File.ReadAllLines("RAMs.txt").Where(a => a.Split(';').Length == 4).Select(a => new RAM(a)).ToList());
 
             if (File.Exists("HardDrives.txt"))
-                products.AddRange(File.ReadAllLines("HardDrives.txt").Where(a => a.Split(';').Length == 4).Select(a => new HardDrive(a)).DistinctBy(a => a.id).Where(a => !products.Any(b => b.id == a.id)).ToList());
+                products.AddRange(File.ReadAllLines("HardDrives.txt").Where(a => a.Split(';').Length == 4).Select(a => new HardDrive(a)).ToList());
 
             if (File.Exists("Displays.txt"))
-                products.AddRange(File.ReadAllLines("Displays.txt").Where(a => a.Split(';').Length == 5).Select(a => new Display(a)).DistinctBy(a => a.id).Where(a => !products.Any(b => b.id == a.id)).ToList());
+                products.AddRange(File.ReadAllLines("Displays.txt").Where(a => a.Split(';').Length == 5).Select(a => new Display(a)).ToList());
 
             if (File.Exists("Laptops.txt"))
-                products.AddRange(File.ReadAllLines("Laptops.txt").Where(a => a.Split(';').Length == 26).Select(a => new Laptop(a)).DistinctBy(a => a.id).Where(a => !products.Any(b => b.id == a.id)).ToList());
+                products.AddRange(File.ReadAllLines("Laptops.txt").Where(a => a.Split(';').Length == 26).Select(a => new Laptop(a)).ToList());
         }
 
         public static void WriteProductsToTxt()

@@ -24,5 +24,47 @@ namespace LaptopWebshop
         {
             prizes = prizes.Where((x) => x != prize).ToList();
         }
+
+        public static void ReadPrizesTxt()
+        {
+            prizes.Clear();
+
+            try
+            {
+                if (File.Exists("Prizes.txt"))
+                    prizes = File.ReadAllLines("Prizes.txt").Select(a => int.Parse(a)).ToList();
+            }
+            catch (Exception e)
+            {
+                prizes = new List<int>();
+            }
+            finally
+            {
+            }
+        }
+
+        public static void WritePrizesToTxt()
+        {
+            TextWriter Prizes_Txt = StreamWriter.Null;
+
+            try
+            {
+                Prizes_Txt = new StreamWriter("Prizes.txt", false, Encoding.UTF8);
+
+                Prizes_Txt.WriteLine(string.Join("\r\n", prizes));
+            }
+            catch (IOException ioex)
+            {
+
+            }
+            catch (Exception e)
+            {
+
+            }
+            finally
+            {
+                Prizes_Txt.Close();
+            }
+        }
     }
 }
