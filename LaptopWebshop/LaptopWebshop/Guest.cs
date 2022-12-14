@@ -5,7 +5,7 @@ namespace LaptopWebshop
 {
 	public class Guest : User
 	{
-        public static readonly string menu = "  1.Login\r\n  2.Registration\r\n  3.List laptops\r\n  4.Add to cart\r\n  5.Show cart\r\n  6.Show prizes\r\n  7.Exit";
+        public static readonly string menu = "  1.Login\r\n  2.Registration\r\n  3.List laptops\r\n  4.Add to cart\r\n  5.Show cart\r\n  6.Remove from cart\r\n  7.Show prizes\r\n  8.Exit";
 
         public Guest() : base() { }
 

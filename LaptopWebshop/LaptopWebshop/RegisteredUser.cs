@@ -15,7 +15,7 @@ namespace LaptopWebshop
         public int discount { get; protected set; }
 
         public static readonly string menu =
-            "  1.List laptops\r\n  2.Add to cart\r\n  3.Show cart\r\n  4.Purchase\r\n  5.Show prizes\r\n  6.Spin\r\n  7.Logout\r\n  8.Exit";
+            "  1.List laptops\r\n  2.Add to cart\r\n  3.Show cart\r\n  4.Remove from cart\r\n 5.Purchase\r\n  6.Show prizes\r\n  7.Spin\r\n  8.Logout\r\n  9.Exit";
         
         //TODO létrehozásnál beállítani az order adattagot filebeolvasáskor
         public RegisteredUser(string username, string name, string password, DateOnly birth) : base()

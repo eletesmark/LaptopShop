@@ -138,8 +138,9 @@ namespace LaptopWebshoop
                 case 3: currentUser.ListLaptops(); break;
                 case 4: currentUser.AddToCart(); break;
                 case 5: currentUser.ShowCart(); break;
-                case 6: User.ListPrizes(); break;
-                case 7:
+                case 6: currentUser.RemoveFromCart(); break;
+                case 7: User.ListPrizes(); break;
+                case 8:
                     WriteTxts();
                     Environment.Exit(0); 
                     break;
@@ -163,13 +164,14 @@ namespace LaptopWebshoop
                 case 1: currentUser.ListLaptops(); break;
                 case 2: currentUser.AddToCart(); break;
                 case 3: currentUser.ShowCart(); break;
-                case 4: ((RegisteredUser)currentUser).Purchase(); break;
-                case 5: User.ListPrizes(); break;
-                case 6: ((RegisteredUser)currentUser).spin(); break;
-                case 7:
+                case 4: currentUser.RemoveFromCart(); break;
+                case 5: ((RegisteredUser)currentUser).Purchase(); break;
+                case 6: User.ListPrizes(); break;
+                case 7: ((RegisteredUser)currentUser).spin(); break;
+                case 8:
                     Logout();
                     break;
-                case 8:
+                case 9:
                     WriteTxts();
                     Environment.Exit(0); 
                     break;
@@ -238,19 +240,20 @@ namespace LaptopWebshoop
                 case 6: currentUser.ListLaptops(); break;
                 case 7: currentUser.AddToCart(); break;
                 case 8: currentUser.ShowCart(); break;
-                case 9: User.ListPrizes(); break;
-                case 10: ((RegisteredUser)currentUser).spin(); break;
-                case 11: ((Manager)currentUser).AddNewProduct(); break;
-                case 12: ((Manager)currentUser).ModifyProduct(); break;
-                case 13: ((Manager)currentUser).DeleteProduct(); break;
-                case 14: ((Manager)currentUser).GetTotalRevenue(); break;
-                case 15:
+                case 9: currentUser.RemoveFromCart(); break;
+                case 10: User.ListPrizes(); break;
+                case 11: ((RegisteredUser)currentUser).spin(); break;
+                case 12: ((Manager)currentUser).AddNewProduct(); break;
+                case 13: ((Manager)currentUser).ModifyProduct(); break;
+                case 14: ((Manager)currentUser).DeleteProduct(); break;
+                case 15: ((Manager)currentUser).GetTotalRevenue(); break;
+                case 16:
                     ChangeDiscounts();
                     break;
-                case 16:
+                case 17:
                     Logout();
                     break;
-                case 17:
+                case 18:
                     WriteTxts();
                     Environment.Exit(0); 
                     break;
