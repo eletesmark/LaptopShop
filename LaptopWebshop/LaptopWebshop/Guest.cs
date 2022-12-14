@@ -21,14 +21,22 @@ namespace LaptopWebshop
 	        DateOnly birth = DateOnly.MinValue;
 
 	        Console.WriteLine("\r\nRegistration form:");
-
-	        Console.Write("Username: ");
-	        username = Console.ReadLine()!;
-	        while (UserStorage.IsUsernameTaken(username)  || username.Length < 3)
+	        while (true)
 	        {
-		        Program.WriteError("This username is already in use or too short!");
 		        Console.Write("Username: ");
 		        username = Console.ReadLine()!;
+		        if (UserStorage.IsUsernameTaken(username)  || username.Length < 3)
+		        {
+			        Program.WriteError("This username is already in use or too short!");
+					continue;
+		        }
+
+		        if (username is "0" or "")
+		        {
+			        Program.WriteError("Username cannot be empty or '0");
+			        continue;
+		        }
+		        break;
 	        }
 
 	        do
@@ -36,16 +44,21 @@ namespace LaptopWebshop
 		        Console.Write("Name: ");
 		        name = Console.ReadLine() ?? string.Empty;
 		        if (name.Trim().Equals(string.Empty) || name.Length < 3)
-			        Program.WriteError("Invalid input! Please try again");
+			        Program.WriteError("Name should be at least 3 characters long! Please try again");
 	        } while (name.Trim().Equals(string.Empty) || name.Length < 3);
 	        
 	        do
 	        {
 		        Console.Write("Password: ");
 		        password = Console.ReadLine() ?? string.Empty;
-		        if (username.Trim().Equals(string.Empty) || username.Length < 3)
+		        if (password == "0")
+		        {
+			        Program.WriteError("Password cannot be '0'");
+			        continue;
+		        }
+		        if (password.Trim().Equals(string.Empty) || password.Length < 3)
 			        Program.WriteError("Invalid input! Please try again");
-	        } while (username.Trim().Equals(string.Empty) || username.Length < 3);
+	        } while (password.Trim().Equals(string.Empty) || password.Length < 3);
 
 	        Console.Write("Birthday (YYYY-MM-DD): ");
 	        while (!DateOnly.TryParse(Console.ReadLine(), out birth))
