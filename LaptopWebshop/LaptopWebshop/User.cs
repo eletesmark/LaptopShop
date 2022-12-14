@@ -25,11 +25,24 @@ namespace LaptopWebshop
             //Console.WriteLine(string.Join("\r\n", Warehouse.ListProducts(a => a.GetType() == typeof(Laptop)).Select(a => a.ToString()).ToList()));
         }
 
-        public void ListPrizes()
+        public static void ListPrizes()
         {
-            Console.WriteLine("LuckyWheel prizes: ");
-            foreach (var p in LuckyWheel.getPrizes())
-                Console.WriteLine(p);
+            List<int> prizes = LuckyWheel.getPrizes();
+
+            if (prizes == null)
+            {
+                Console.WriteLine("\nThere are no prizes at the moment. Please come back later!");
+                return;
+            }
+
+            int id = 1;
+            foreach (var prize in prizes)
+            {
+                Console.WriteLine(id + ". - " + prize + "%");
+                id++;
+            }
+
+            Console.WriteLine();
         }
         
         public void AddToCart()

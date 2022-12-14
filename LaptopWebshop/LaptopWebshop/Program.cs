@@ -138,7 +138,7 @@ namespace LaptopWebshoop
                 case 3: currentUser.ListLaptops(); break;
                 case 4: currentUser.AddToCart(); break;
                 case 5: currentUser.ShowCart(); break;
-                case 6: currentUser.ListPrizes(); break;
+                case 6: User.ListPrizes(); break;
                 case 7:
                     WriteTxts();
                     Environment.Exit(0); 
@@ -164,7 +164,7 @@ namespace LaptopWebshoop
                 case 2: currentUser.AddToCart(); break;
                 case 3: currentUser.ShowCart(); break;
                 case 4: ((RegisteredUser)currentUser).Purchase(); break;
-                case 5: currentUser.ListPrizes(); break;
+                case 5: User.ListPrizes(); break;
                 case 6: ((RegisteredUser)currentUser).spin(); break;
                 case 7:
                     Logout();
@@ -193,7 +193,7 @@ namespace LaptopWebshoop
                 case 2: ((Manager)currentUser).AddNewProduct(); break;
                 case 3: //ModifyProduct(); break;
                 case 4: //DeleteProduct(); break;
-                case 5: //ShowStats(); break;
+                case 5: ((Manager)currentUser).GetTotalRevenue(); break;
                 case 6:
                     ChangeDiscounts();
                     break;
@@ -357,7 +357,7 @@ namespace LaptopWebshoop
 
         public void ChangeDiscounts()
         {
-            printPrizes();
+            User.ListPrizes();
             Console.Write("1.add new discount \n2.delete a discount");
             Console.Write("Please select an option: ");
             string res = Console.ReadLine();
@@ -366,7 +366,6 @@ namespace LaptopWebshoop
                 case "1":
                 {
                     int discount = -1;
-                    //while discount is not between 0 and 100
                     while (true)
                     {
                         try
@@ -389,7 +388,7 @@ namespace LaptopWebshoop
                     }
 
                     Console.WriteLine(discount);
-                    LuckyWheel.addNewPrize(discount);
+                    Manager.AddNewPrize(discount);
                     Console.WriteLine("Discount successfully added!");
                     break;
                 }
@@ -415,7 +414,7 @@ namespace LaptopWebshoop
                         return;
                     }
 
-                    LuckyWheel.deletePrize(prizeID);
+                    Manager.DeletePrize(prizeID);
 
                     WriteSucces("Prize successfully deleted!");
                     break;
@@ -427,26 +426,7 @@ namespace LaptopWebshoop
                 }
             }
         }
-
-        public void printPrizes()
-        {
-            List<int> prizes = LuckyWheel.getPrizes();
-
-            if (prizes == null)
-            {
-                Console.WriteLine("\nThere are no prizes at the moment. Please come back later!");
-                return;
-            }
-
-            int id = 1;
-            foreach (var prize in prizes)
-            {
-                Console.WriteLine(id + ". - " + prize + "%");
-                id++;
-            }
-
-            Console.WriteLine();
-        }
+        
 
         //Password reader - https://www.c-sharpcorner.com/forums/password-in-c-sharp-console-application
         public static string ReadPassword()
