@@ -35,9 +35,6 @@ public class Order
         this.username = t[0];
 
         cart = new List<Laptop>();
-        //string[] laptops = t[1].Split("|");
-        //foreach (string l in laptops)
-        //    cart.Add(new Laptop(l));
 
         cart = t[1].Split("|").Select(a => new Laptop(a)).ToList();
         
@@ -46,8 +43,6 @@ public class Order
         
         this.address = t[3];
     }
-    
-    //public int id { get; set; }
     public string username { get; set; }
     public List<Laptop> cart { get; private set; }
     public DateTime date { get; set; }
