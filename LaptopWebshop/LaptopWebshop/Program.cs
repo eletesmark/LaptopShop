@@ -282,7 +282,7 @@ namespace LaptopWebshoop
                     break;
                    
             }
-            */
+             */
         }
 
         //Logout
@@ -302,15 +302,18 @@ namespace LaptopWebshoop
         //TODO szépen kiírni
         public void AddManagerRole()
         {
+            Admin.ListUsers();
             if (currentUser.Type() != "Admin")
             {
                 return;
             }
-            Console.WriteLine("username: ");
+
+            Console.WriteLine("\nusername: ");
             string username = Console.ReadLine();
 
             Admin.AddManagerRole(username);
         }
+
         //TODO szépen kiírni
         public void ListUsers()
         {
@@ -319,40 +322,56 @@ namespace LaptopWebshoop
                 Console.WriteLine("How did you get here? You're no admin!");
                 return;
             }
+
             Admin.ListUsers();
         }
         
         //TODO szépen megírni a kiírást
         public void SearchUser()
         {
-            Console.WriteLine("Username you want to search for: ");
-            string username = Console.ReadLine();
-            User u = Admin.SearchUser(username);
-            if (u != null)
+            while (true)
             {
-                return;
-            }
+                Console.WriteLine("Username you want to search for: ");
+                string username = Console.ReadLine()!;
+                if (username == "0") break;
+                    
+                var user = Admin.SearchUser(username);
+                if (user is null)
+                {
+                   WriteError("There is no user with this username! Try again or type '0' to exit"); 
+                   continue;
+                }
 
-            Console.WriteLine("There is no user with this username!");
+                Console.WriteLine($"{user.Type()} | username: {user.username} | name: {user.name} | birthdate: {user.birth} | last spin:{user.lastSpin}");
+                break;
+            }
         }
 
         //TODO szépen megírni a kiírást, lehetne szebben
         public void DeleteUser()
         {
-            if (currentUser.Type() != "Admin" || currentUser.Type() != "Manager")
+            ListUsers();
+            if (currentUser.GetType() != typeof(Admin) && currentUser.GetType() != typeof(Manager))
             {
                 return;
             }
 
-            Console.WriteLine("Username of the user you want to delete: ");
-            string username = Console.ReadLine();
-            try
+            while (true)
             {
-                Admin.DeleteUser(username);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("There's no user with this userName!");
+                Console.WriteLine("Username of the user you want to delete or type '0' the exit: ");
+                string username = Console.ReadLine();
+                if (username == "0") break;
+                var user = Admin.DeleteUser(username);
+
+                if (user is null)
+                {
+                    WriteError("There is no user with this username! Try again or type '0' to exit"); 
+                    continue;
+                }
+                
+                UserStorage.RemoveUser(username);
+                WriteSucces($"User {username}Successfully deleted!");
+                break;
             }
 
             Console.WriteLine("User Successfully deleted!");

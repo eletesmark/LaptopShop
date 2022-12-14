@@ -1,4 +1,6 @@
-﻿namespace LaptopWebshop
+﻿using LaptopWebshoop;
+
+namespace LaptopWebshop
 {
     public class Admin : Manager
     {
@@ -28,6 +30,7 @@
                 UserStorage.AddUser(user);
             }
             else throw new Exception("You cannot give manager role to this user!");
+            Program.WriteSucces($"Manager role successfully added to {username}!");
         }
     //TODO ha kész lesz az order
         // public static void ListOrders()
@@ -67,9 +70,16 @@
             return null;
         }
         
-        public static void DeleteUser(string username)
+        public static RegisteredUser DeleteUser(string username)
         {
-            UserStorage.GetUsers().Remove(UserStorage.GetUser(username));
+            foreach (var user in UserStorage.GetUsers())
+            {
+                if (user.username == username)
+                {
+                    return user;
+                }
+            }
+            return null;
         }
         
         

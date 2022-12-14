@@ -21,6 +21,11 @@ namespace LaptopWebshop
             WriteToTxt();
         }
 
+        public static void RemoveUser(string username)
+        {
+            users.Remove(username);
+        }
+
         public static bool IsUsernameTaken(string username) => users.ContainsKey(username);//users.Any(a => a.username.Equals(username));
 
         //
