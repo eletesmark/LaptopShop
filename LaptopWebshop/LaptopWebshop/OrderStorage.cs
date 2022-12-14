@@ -11,9 +11,17 @@ public class OrderStorage
     
     public static Order GetOrder(int id) => Orders.FirstOrDefault(x => x.id == id);
 
-    public static void AddOrder(Order order) => Orders.Add(order);
+    public static void AddOrder(Order order)
+    {
+        Orders.Add(order);
+        WriteOrdersToTxt();
+    }
 
-    public static void DeleteOrder(int id) => Orders.Remove(GetOrder(id));
+    public static void DeleteOrder(int id)
+    {
+        Orders.Remove(GetOrder(id));
+        WriteOrdersToTxt();
+    }
 
     public static void ReadOrdersTxt()
     {
@@ -33,13 +41,9 @@ public class OrderStorage
             
             orders_Txt.WriteLine(string.Join("\r\n", Orders.Select(a => a.FormatToTxt()).ToList()));
         }
-        catch (IOException ioex)
-        {
-
-        }
         catch (Exception e)
         {
-
+            //Ignored
         }
         finally
         {

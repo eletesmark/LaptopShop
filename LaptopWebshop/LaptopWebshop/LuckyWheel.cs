@@ -8,7 +8,7 @@ namespace LaptopWebshop
 {
     public static class LuckyWheel
     {
-        private static List<int> prizes;
+        private static List<int> prizes = new();
 
         public static List<int> getPrizes()
         {
@@ -18,11 +18,16 @@ namespace LaptopWebshop
         public static void addNewPrize(int newPrize)
         {
             prizes.Add(newPrize);
+            WritePrizesToTxt();
         }
 
-        public static void deletePrize(int prize)
+        public static void deletePrize(int id)
         {
-            prizes = prizes.Where((x) => x != prize).ToList();
+            if (id > 0 && id < prizes.Count+1)
+            {
+                prizes.RemoveAt(id-1);
+            }
+            WritePrizesToTxt();
         }
 
         public static void ReadPrizesTxt()
@@ -38,9 +43,9 @@ namespace LaptopWebshop
             {
                 prizes = new List<int>();
             }
-            finally
-            {
-            }
+            // finally
+            // {
+            // }
         }
 
         public static void WritePrizesToTxt()
