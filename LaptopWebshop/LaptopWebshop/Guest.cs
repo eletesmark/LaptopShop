@@ -11,21 +11,18 @@ namespace LaptopWebshop
 
         public override string ToString() => "GUEST";
 
-        //BUG nem lehet getterrel hozzáadni a userStoragehoz mert az csak kimásolja a felhasználókat egy listába
+        //TODO test
         public static void Register(string username, string name, string password, DateOnly birth)
         {
 	        RegisteredUser u = new(username, name, password, birth);
-	        UserStorage.GetUsers().Add( u);
-	        // UserStorage.
-
-	        List<RegisteredUser> users = UserStorage.GetUsers();
-
-	        Console.WriteLine("Usernames in users:");
-	        foreach (var a in users)
-	        {
-		        Console.WriteLine(a.username);
-	        }
-	        UserStorage.WriteToTxt();
+	        UserStorage.AddUser(u);
+	        // List<RegisteredUser> users = UserStorage.GetUsers();
+	        // Console.WriteLine("Usernames in users:");
+	        // foreach (var a in users)
+	        // {
+		       //  Console.WriteLine(a.username);
+	        // }
+	        // UserStorage.WriteToTxt();
         }
     }
 }

@@ -99,22 +99,24 @@ namespace LaptopWebshop
                 password = Console.ReadLine()!;
             }
 
-            string name = UserStorage.GetUser(username).name;
-            birth = UserStorage.GetUser(username).birth;
-            string type = UserStorage.GetUser(username).Type();
-
-            switch (type)
-            {
-                case "RegisteredUser": return new RegisteredUser(username, name, password, birth);
-                case "Manager": return new Manager(username, name, password, birth);
-                case "Admin": return new Admin(username, name, password, birth);
-                default: return null;
-            }
+            return UserStorage.GetUser(username);
+            //
+            // string name = UserStorage.GetUser(username).name;
+            // birth = UserStorage.GetUser(username).birth;
+            // string type = UserStorage.GetUser(username).Type();
+            //
+            // switch (type)
+            // {
+            //     case "RegisteredUser": return new RegisteredUser(username, name, password, birth);
+            //     case "Manager": return new Manager(username, name, password, birth);
+            //     case "Admin": return new Admin(username, name, password, birth);
+            //     default: return null;
+            // }
         }
 
         public void Purchase()
         {
-            
+            //TODO
         }
     }
 }

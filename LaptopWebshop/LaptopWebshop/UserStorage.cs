@@ -6,7 +6,7 @@ namespace LaptopWebshop
 	public static class UserStorage
 	{
 		//static List<User> users = new List<User>();
-        static Dictionary<string, RegisteredUser> users = new();
+        private static Dictionary<string, RegisteredUser> users = new();
 
 		public static List<RegisteredUser> GetUsers() =>  new(users.Values);
 
@@ -15,7 +15,11 @@ namespace LaptopWebshop
             return users[username];
         }
 
-        public static void AddUser(RegisteredUser u) => users[u.username] = u;
+        public static void AddUser(RegisteredUser u)
+        {
+            users[u.username] = u;
+            WriteToTxt();
+        }
 
         public static bool IsUsernameTaken(string username) => users.ContainsKey(username);//users.Any(a => a.username.Equals(username));
 
@@ -23,12 +27,6 @@ namespace LaptopWebshop
         public static bool IsValid(string username, string password) => users.Any(a => a.Value.IsIt(username, password));
 
         public static bool IsValidUsername(string username) => users.Any(a => a.Value.username.Equals(username));
-
-        // public static User LogIn(string username) => users[username];
-
-        // public static void Register(string username, string name, string password, DateOnly birth) => users.Add(username, new RegisteredUser(username, name, password, birth));
-
-        // public static void AddManagerRule(User u) => users[u.username] = new Manager(u);
 
         public static void ReadUsersTxt()
         {
@@ -59,9 +57,11 @@ namespace LaptopWebshop
                 managers_Txt = new StreamWriter("managers.txt", false, Encoding.UTF8);
                 admins_Txt = new StreamWriter("admins.txt", false, Encoding.UTF8);
 
-                registeredUsers_Txt.WriteLine(string.Join("\r\n", users.Where(a => a.GetType().Name.Equals("RegisteredUser")).Select(a => ((RegisteredUser)a.Value).FormatToTxt()).ToList()));
-                managers_Txt.WriteLine(string.Join("\r\n", users.Where(a => a.GetType().Name.Equals("Manager")).Select(a => ((Manager)a.Value).FormatToTxt()).ToList()));
-                admins_Txt.WriteLine(string.Join("\r\n", users.Where(a => a.GetType().Name.Equals("Admin")).Select(a => ((Admin)a.Value).FormatToTxt()).ToList()));
+                registeredUsers_Txt.WriteLine(string.Join("\r\n",
+                    users.Where(a => a.Value.GetType() == typeof(RegisteredUser))
+                        .Select(a => ((RegisteredUser)a.Value).FormatToTxt()).ToList()));
+                managers_Txt.WriteLine(string.Join("\r\n", users.Where(a => a.Value.GetType().Name.Equals("Manager")).Select(a => ((Manager)a.Value).FormatToTxt()).ToList()));
+                admins_Txt.WriteLine(string.Join("\r\n", users.Where(a => a.Value.GetType().Name.Equals("Admin")).Select(a => ((Admin)a.Value).FormatToTxt()).ToList()));
 
                 //foreach (RegisteredUser u in users.Select(a => a.Value))
                 //    if (u.Type().Equals("Registered user"))

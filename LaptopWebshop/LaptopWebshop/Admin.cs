@@ -17,7 +17,7 @@
         public override string Type() => "Admin";
 
 
-        //TODO test hogy átrakja-e a felhasználót managerbe
+        //BUG rosszul menti el az új managert: más a jelszó mint az eredeti
         public static void AddManagerRole(string username)
         {
             RegisteredUser user = UserStorage.GetUser(username) ;
@@ -25,8 +25,7 @@
             if (user.GetType() == typeof(RegisteredUser))
             {
                 user = new Manager(user.username, user.name, user.password, user.birth);
-                UserStorage.GetUsers().Add(user);
-                // UserStorage.WriteToTxt();
+                UserStorage.AddUser(user);
             }
             else throw new Exception("You cannot give manager role to this user!");
         }
