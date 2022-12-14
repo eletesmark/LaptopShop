@@ -191,8 +191,8 @@ namespace LaptopWebshoop
             {
                 case 1: currentUser.ListLaptops(); break;
                 case 2: ((Manager)currentUser).AddNewProduct(); break;
-                case 3: //ModifyProduct(); break;
-                case 4: //DeleteProduct(); break;
+                case 3: ((Manager)currentUser).ModifyProduct(); break;
+                case 4: ((Manager)currentUser).DeleteProduct(); break;
                 case 5: //ShowStats(); break;
                 case 6:
                     ChangeDiscounts();
