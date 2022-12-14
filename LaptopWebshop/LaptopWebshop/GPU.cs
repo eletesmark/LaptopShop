@@ -6,7 +6,7 @@ namespace LaptopWebshop
 		public int memory { get; private set; }
         public double clockRate { get; private set; }
 
-        public GPU(string name, string brand, int price, int memory, double clockRate) : base(name, brand)
+        public GPU(string name, string brand, int memory, double clockRate) : base(name, brand)
         {
             this.memory = memory;
             this.clockRate = clockRate;
@@ -27,6 +27,8 @@ namespace LaptopWebshop
         }
 
         public override string FormatToTxt() => string.Format("{0};{1};{2};{3}", name, brand, memory, clockRate);
+        
+        public override string ToString() => string.Format("Memory: {0}, clock rate: {1}", memory, clockRate);
     }
 }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Security.Cryptography;
 using System.Text;
+using LaptopWebshoop;
 
 namespace LaptopWebshop
 {
@@ -89,7 +90,7 @@ namespace LaptopWebshop
             username = Console.ReadLine()!;
             while (!UserStorage.IsValidUsername(username))
             {
-                Console.WriteLine("Invalid username! Try again:");
+                Program.WriteError("Invalid username! Try again:");
                 Console.Write("Username: ");
                 username = Console.ReadLine()!;
             }
@@ -98,7 +99,7 @@ namespace LaptopWebshop
             password = Console.ReadLine()!;
             while (!UserStorage.IsValid(username, password))
             {
-                Console.WriteLine("Invalid password! Try again:");
+                Program.WriteError("Invalid password! Try again:");
                 Console.Write("Password: ");
                 password = Console.ReadLine()!;
             }

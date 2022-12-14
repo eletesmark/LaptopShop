@@ -11,7 +11,11 @@ public class OrderStorage
     
     public static Order GetOrder(int id) => Orders.FirstOrDefault(x => x.id == id);
 
-    public static void AddOrder(Order order) => Orders.Add(order);
+    public static void AddOrder(Order order)
+    {
+        Orders.Add(order);
+        WriteOrdersToTxt();
+    }
 
     public static void DeleteOrder(int id) => Orders.Remove(GetOrder(id));
 

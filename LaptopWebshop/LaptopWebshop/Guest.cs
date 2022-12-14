@@ -1,4 +1,6 @@
 ﻿using System;
+using LaptopWebshoop;
+
 namespace LaptopWebshop
 {
 	public class Guest : User
@@ -11,7 +13,6 @@ namespace LaptopWebshop
 
         public override string ToString() => "GUEST";
         
-        //public static void Register(string username, string name, string password, DateOnly birth)
         public static RegisteredUser Register()
         {
 	        string username = string.Empty;
@@ -23,9 +24,9 @@ namespace LaptopWebshop
 
 	        Console.Write("Username: ");
 	        username = Console.ReadLine()!;
-	        while (UserStorage.IsUsernameTaken(username))
+	        while (UserStorage.IsUsernameTaken(username)  || username.Length < 3)
 	        {
-		        Console.WriteLine("This username is already in use!");
+		        Program.WriteError("This username is already in use or too short!");
 		        Console.Write("Username: ");
 		        username = Console.ReadLine()!;
 	        }
@@ -35,7 +36,7 @@ namespace LaptopWebshop
 		        Console.Write("Name: ");
 		        name = Console.ReadLine() ?? string.Empty;
 		        if (name.Trim().Equals(string.Empty) || name.Length < 3)
-			        Console.WriteLine("Invalid input! Please try again");
+			        Program.WriteError("Invalid input! Please try again");
 	        } while (name.Trim().Equals(string.Empty) || name.Length < 3);
 	        
 	        do
@@ -43,13 +44,13 @@ namespace LaptopWebshop
 		        Console.Write("Password: ");
 		        password = Console.ReadLine() ?? string.Empty;
 		        if (username.Trim().Equals(string.Empty) || username.Length < 3)
-			        Console.WriteLine("Invalid input! Please try again");
+			        Program.WriteError("Invalid input! Please try again");
 	        } while (username.Trim().Equals(string.Empty) || username.Length < 3);
 
 	        Console.Write("Birthday (YYYY-MM-DD): ");
 	        while (!DateOnly.TryParse(Console.ReadLine(), out birth))
 	        {
-		        Console.WriteLine("Invalid input! Please try again");
+		        Program.WriteError("Invalid input! Please try again");
 		        Console.Write("Birthday (YYYY-MM-DD): ");
 	        }
 

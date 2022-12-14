@@ -6,7 +6,7 @@ namespace LaptopWebshop
 		public double size { get; private set; }
 		public Tuple<int, int> resolution { get; private set; }
 
-		public Display(string name, string brand, int price, int size, int x, int y) : base(name, brand)
+		public Display(string name, string brand, double size, int x, int y) : base(name, brand)
         {
 			this.size = size;
 			resolution = new Tuple<int, int>(x, y);
@@ -29,6 +29,8 @@ namespace LaptopWebshop
         }
 
         public override string FormatToTxt() => string.Format("{0};{1};{2};{3};{4}", name, brand, size, resolution.Item1, resolution.Item2);
+        
+        public override string ToString() => string.Format("Size: {0}, Resolution: {1}x{2}", size, resolution.Item1, resolution.Item2);
     }
 }
 

@@ -6,7 +6,7 @@ namespace LaptopWebshop
 		public int size { get; private set; }
 		public string type { get; private set; }
 
-        public HardDrive(string name, string brand, int price, int size, string type) : base(name, brand)
+        public HardDrive(string name, string brand, int size, string type) : base(name, brand)
         {
             this.size = size;
             this.type = type;
@@ -26,6 +26,8 @@ namespace LaptopWebshop
         }
 
         public override string FormatToTxt() => string.Format("{0};{1};{2};{3}", name, brand, size, type);
+        
+        public override string ToString() => string.Format("Size: {0}, Type: {1}", size, type);
     }
 }
 
