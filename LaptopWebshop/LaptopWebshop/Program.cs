@@ -260,29 +260,6 @@ namespace LaptopWebshoop
             currentUser = RegisteredUser.login();
             if (currentUser.GetType() != typeof(Guest))
                 WriteSucces("You successfully logged in!");
-
-            /*
-            switch (currentUser.Type())
-            {
-                case "Registered user":
-                    RegisteredMenu();
-                    break;
-                case "Manager":
-                    ManagerMenu();
-                    break;
-                case "Admin":
-                    AdminMenu();
-                    break;
-                case "Guest":
-                    GuestMenu();
-                    break;
-                default:
-                    WriteError("Unexpected error! Please try again!");
-                    GuestMenu();
-                    break;
-                   
-            }
-             */
         }
 
         //Logout

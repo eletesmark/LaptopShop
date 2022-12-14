@@ -119,7 +119,24 @@ namespace LaptopWebshop
 
         public void Purchase()
         {
-            //TODO
+            if (order.cart.Count == 0)
+            {
+                Program.WriteError("Your cart is empty!");
+                return;
+            }
+
+            order.username = username;
+
+            string address = string.Empty;
+            Program.GetInput(ref address,"Destination address");
+            order.address = address;
+
+            order.date = DateTime.Now;
+            
+            OrderStorage.AddOrder(order);
+
+            order = new Order();
+            Program.WriteSucces("Successfully ordered!");
         }
     }
 }
