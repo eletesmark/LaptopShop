@@ -62,6 +62,7 @@ namespace LaptopWebshoop
             UserStorage.WriteToTxt();
             Warehouse.WriteProductsToTxt();
             OrderStorage.WriteOrdersToTxt();
+            LuckyWheel.WritePrizesToTxt();
         }
 
         //Writers
@@ -135,7 +136,10 @@ namespace LaptopWebshoop
                     Registration();
                     break;
                 case 3: currentUser.ListLaptops(); break;
-                case 4:
+                case 4: currentUser.AddToCart(); break;
+                case 5: currentUser.ShowCart(); break;
+                case 6: currentUser.ListPrizes(); break;
+                case 7:
                     WriteTxts();
                     Environment.Exit(0); 
                     break;
@@ -157,12 +161,15 @@ namespace LaptopWebshoop
             switch (n)
             {
                 case 1: currentUser.ListLaptops(); break;
-                case 2: //AddToCart(); break;
-                case 3: //ShowCart(); break;
-                case 4:
+                case 2: currentUser.AddToCart(); break;
+                case 3: currentUser.ShowCart(); break;
+                case 4: ((RegisteredUser)currentUser).Purchase(); break;
+                case 5: currentUser.ListPrizes(); break;
+                case 6: ((RegisteredUser)currentUser).spin(); break;
+                case 7:
                     Logout();
                     break;
-                case 5:
+                case 8:
                     WriteTxts();
                     Environment.Exit(0); 
                     break;

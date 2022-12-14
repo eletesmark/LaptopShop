@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Security.Cryptography;
 using System.Text;
+using LaptopWebshoop;
 
 namespace LaptopWebshop
 {
@@ -24,15 +25,33 @@ namespace LaptopWebshop
             //Console.WriteLine(string.Join("\r\n", Warehouse.ListProducts(a => a.GetType() == typeof(Laptop)).Select(a => a.ToString()).ToList()));
         }
 
-        void getPrizes()
+        public void ListPrizes()
         {
-            //TODO list all prizes to stdout
-            
+            Console.WriteLine("LuckyWheel prizes: ");
+            foreach (var p in LuckyWheel.getPrizes())
+                Console.WriteLine(p);
         }
         
-        public void AddToCart(Laptop laptop)
+        public void AddToCart()
         {
-            order.cart.Add(laptop);
+            ListLaptops();
+            
+            int n = 0;
+            Program.GetInput(ref n, "\r\nChoose a Laptop ID");
+
+            if(!Warehouse.products.Where(a => a.GetType() == typeof(Laptop)).Any(a => a.id == n))
+                Console.WriteLine("Invalid laptop ID!");
+            else
+                order.cart.Add((Laptop)Warehouse.products.Where(a => a.GetType() == typeof(Laptop)).First(a => a.id == n));
+        }
+
+        public void ShowCart()
+        {
+            if(order.cart.Count == 0)
+                Console.WriteLine("Your cart is empty!");
+            else
+                foreach (var laptop in order.cart)
+                    Console.WriteLine(laptop.ToString());
         }
 
         public void RemoveFromCart(int id)
