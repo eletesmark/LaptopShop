@@ -1,4 +1,6 @@
-﻿namespace LaptopWebshop;
+﻿using System.Text;
+
+namespace LaptopWebshop;
 
 public class OrderStorage
 {
@@ -15,12 +17,34 @@ public class OrderStorage
 
     public static void ReadOrdersTxt()
     {
-        //TODO
+        Orders.Clear();
+
+        if (File.Exists("orders.txt"))
+            Orders.AddRange(File.ReadAllLines("orders.txt").Where(a => a.Split(';').Length == 4).Select(a => new Order(a)).ToList());
     }
 
-    public static void WriteOrdersTxt()
+    public static void WriteOrdersToTxt()
     {
-        //TODO
+        TextWriter orders_Txt = StreamWriter.Null; //Close() miatt kell adni neki valami alap erteket
+
+        try
+        {
+            orders_Txt = new StreamWriter("orders.txt", false, Encoding.UTF8);
+            
+            orders_Txt.WriteLine(string.Join("\r\n", Orders.Select(a => a.FormatToTxt()).ToList()));
+        }
+        catch (IOException ioex)
+        {
+
+        }
+        catch (Exception e)
+        {
+
+        }
+        finally
+        {
+            orders_Txt.Close();
+        }
     }
     
 }

@@ -68,12 +68,12 @@ namespace LaptopWebshop
                 HardDrives_Txt = new StreamWriter("HardDrives.txt", false, Encoding.UTF8);
                 Displays = new StreamWriter("Displays.txt", false, Encoding.UTF8);
 
-                CPUs_Txt.WriteLine(string.Join("\r\n", products.Where(a => a.GetType().Name.Equals("CPU")).Select(a => ((CPU)a).FormatToTxt()).ToList()));
-                CPUs_Txt.WriteLine(string.Join("\r\n", products.Where(a => a.GetType().Name.Equals("GPU")).Select(a => ((GPU)a).FormatToTxt()).ToList()));
-                CPUs_Txt.WriteLine(string.Join("\r\n", products.Where(a => a.GetType().Name.Equals("RAM")).Select(a => ((RAM)a).FormatToTxt()).ToList()));
-                CPUs_Txt.WriteLine(string.Join("\r\n", products.Where(a => a.GetType().Name.Equals("HardDrive")).Select(a => ((HardDrive)a).FormatToTxt()).ToList()));
-                CPUs_Txt.WriteLine(string.Join("\r\n", products.Where(a => a.GetType().Name.Equals("Display")).Select(a => ((Display)a).FormatToTxt()).ToList()));
-                CPUs_Txt.WriteLine(string.Join("\r\n", products.Where(a => a.GetType().Name.Equals("Laptop")).Select(a => ((Laptop)a).FormatToTxt()).ToList()));
+                CPUs_Txt.WriteLine(string.Join("\r\n", products.Where(a => a.GetType() == typeof(CPU)).Select(a => ((CPU)a).FormatToTxt()).ToList()));
+                CPUs_Txt.WriteLine(string.Join("\r\n", products.Where(a => a.GetType() == typeof(GPU)).Select(a => ((GPU)a).FormatToTxt()).ToList()));
+                CPUs_Txt.WriteLine(string.Join("\r\n", products.Where(a => a.GetType() == typeof(RAM)).Select(a => ((RAM)a).FormatToTxt()).ToList()));
+                CPUs_Txt.WriteLine(string.Join("\r\n", products.Where(a => a.GetType() == typeof(HardDrive)).Select(a => ((HardDrive)a).FormatToTxt()).ToList()));
+                CPUs_Txt.WriteLine(string.Join("\r\n", products.Where(a => a.GetType() == typeof(Display)).Select(a => ((Display)a).FormatToTxt()).ToList()));
+                CPUs_Txt.WriteLine(string.Join("\r\n", products.Where(a => a.GetType() == typeof(Laptop)).Select(a => ((Laptop)a).FormatToTxt()).ToList()));
             }
             catch (IOException ioex)
             {

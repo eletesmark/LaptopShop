@@ -11,7 +11,7 @@ namespace LaptopWebshop
         //Alap konstruktor a vendéghez
         public User()
         {
-            
+            order = new Order();
         }
 
         public abstract string Type();
@@ -30,7 +30,8 @@ namespace LaptopWebshop
 
         public void RemoveFromCart(int id)
         {
-            order.cart.Remove(order.cart[id - 1]);
+            if(id > 0 && id < order.cart.Count)
+                order.cart.Remove(order.cart[id - 1]);
         }
     }
 }

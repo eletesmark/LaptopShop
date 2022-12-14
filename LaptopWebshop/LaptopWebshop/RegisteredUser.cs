@@ -17,7 +17,7 @@ namespace LaptopWebshop
             "  1.List laptops\r\n  2.Add to cart\r\n  3.Show cart\r\n  4.Logout\r\n  5.Exit";
         
         //TODO létrehozásnál beállítani az order adattagot filebeolvasáskor
-        public RegisteredUser(string username, string name, string password, DateOnly birth)
+        public RegisteredUser(string username, string name, string password, DateOnly birth) : base()
         {
             this.username = username;
             this.name = name;
@@ -29,7 +29,7 @@ namespace LaptopWebshop
             this.discount = 0;
         }
         
-        public RegisteredUser(string line)
+        public RegisteredUser(string line) : base()
         {
             string[] t = line.Split(';');
 
@@ -45,6 +45,8 @@ namespace LaptopWebshop
 
             int.TryParse(t[5], out int tempDisc);
             this.discount = tempDisc;
+
+            order = new Order(t[6]);
         }
         
         public bool IsIt(string username, string password) => this.username.Equals(username) && this.password.Equals(SHA1(password));
@@ -52,7 +54,7 @@ namespace LaptopWebshop
         public override string ToString() => string.Format("{0}\r\n -Name: {1}\r\n -Password: {2}\r\n -Birthday: {3}\r\n -Type: {4}\r\n -Last spin: {5}\r\n -Discount: {6}", username, name, password, birth.ToString("yyyy.MM.dd"), Type(), lastSpin.ToString("yyyy.MM.dd HH:mm:ss"), discount);
 
         //Formázott kiírás a txt-be mentéshez
-        public string FormatToTxt() => string.Format("{0};{1};{2};{3};{4};{5}", username, name, password, birth.ToString("yyyy.MM.dd"), lastSpin.ToString("yyyy.MM.dd HH:mm:ss"), discount.ToString());
+        public string FormatToTxt() => string.Format("{0};{1};{2};{3};{4};{5};{6}", username, name, password, birth.ToString("yyyy.MM.dd"), lastSpin.ToString("yyyy.MM.dd HH:mm:ss"), discount.ToString(), order.FormatToTxt());
 
         //Hash password - https://www.codeproject.com/Questions/523323/Encryptingpluspasswordplusinplusc-23
         public static string SHA1(string password) => Convert.ToBase64String(HashAlgorithm.Create("SHA1").ComputeHash(Encoding.Unicode.GetBytes(password)));
